@@ -1,0 +1,65 @@
+version: 2.1
+jobs:
+  build:
+    working_directory: ~/todo_api
+    docker:
+      - image: circleci/ruby:2.7.2
+        environment:
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+          RAILS_ENV: test
+          PGHOST: 127.0.0.1
+          PGUSER: $POSTGRES_USER
+
+      - image: circleci/postgres:11-alpine
+        environment:
+          POSTGRES_USER: $POSTGRES_USER
+          POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+          POSTGRES_DB: $POSTGRES_DB
+    steps:
+      - checkout
+
+      # Install dependencies for Ruby Gems
+      - restore_cache:
+          keys:
+            - bookstore-bundle-v1-{{ checksum "Gemfile.lock" }}
+            - bookstore-bundle-v1-
+
+      - run:
+          name: Configure Bundler
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            gem install bundler
+      - run:
+          name: Bundle Install
+          command: bundle check || bundle install
+
+      - save_cache:
+          key: bookstore-bundle-v1-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      # Preparing database
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://127.0.0.1:5432 -timeout 1m
+
+      - run:
+          name: Database setup
+          command: bundle exec rake db:create db:schema:load --trace
+
+      # Run test suits
+      - run:
+          name: Run rubocop
+          command: bundle exec rubocop
+
+      - run:
+          name: Run rspec
+          command: |
+            bundle exec rspec --format RspecJunitFormatter \
+                             --out /tmp/test-results/rspec.xml \
+                             --format progress
+      # Save artifacts
+      - store_artifacts:
+          path: coverage
