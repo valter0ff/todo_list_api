@@ -9,16 +9,7 @@ AllCops:
     - 'db/**/*'
     - 'script/**/*'
     - 'bin/**/*'
-    - 'node_modules/**/*'
     - 'vendor/**/*'
-
-RSpec/DescribeClass:
-  Exclude:
-    - 'spec/features/**/*'
-
-RSpec/AnyInstance:
-  Exclude:
-    - 'spec/controllers/**/*'
 
 RSpec/LetSetup:
   Enabled: false
@@ -38,10 +29,6 @@ RSpec/ExampleLength:
 RSpec/NestedGroups:
   Max: 4
 
-Metrics/ModuleLength:
-  Exclude:
-    - 'spec/**/*'
-
 Style/Documentation:
   Enabled: false
 
@@ -54,8 +41,7 @@ Rails/LexicallyScopedActionFilter:
 Layout/LineLength:
   Max: 120
   Exclude:
-    - 'config/initializers/devise.rb'
-    - 'config/initializers/simple_form.rb'
+    - 'config/initializers/*'
 
 Lint/MissingSuper:
   Enabled: false
@@ -68,8 +54,16 @@ Metrics/BlockLength:
     - 'spec/**/*'
     - 'config/environments/*.rb'
     - 'config/routes.rb'
-    - 'app/admin/*.rb'
 
 Metrics/AbcSize:
   Exclude:
-    - 'spec/support/pages/**/*'
+    - 'app/controllers/concerns/default_endpoint.rb'
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - 'app/controllers/concerns/default_endpoint.rb'
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - 'app/controllers/concerns/default_endpoint.rb'
+
