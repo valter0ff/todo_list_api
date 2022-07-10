@@ -2,7 +2,8 @@
 
 module Constants
   module User
-    USER_NAME_SIZE = (3..50)
-    PASSWORD_FORMAT = /\A(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\S{8}\z/.freeze
+    USER_NAME_SIZE = 3..50
+    PASSWORD_SIZE = 8
+    PASSWORD_FORMAT = /\A[A-Za-z0-9]+\z/.freeze
   end
 end

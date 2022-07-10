@@ -65,6 +65,7 @@ GEM
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.2)
+    awesome_print (1.9.2)
     bcrypt (3.1.18)
     bootsnap (1.12.0)
       msgpack (~> 1.2)
@@ -208,6 +209,8 @@ GEM
     pry-byebug (3.9.0)
       byebug (~> 11.0)
       pry (~> 0.13.0)
+    pry-rails (0.3.9)
+      pry (>= 0.10.4)
     public_suffix (4.0.7)
     puma (5.6.4)
       nio4r (~> 2.0)
@@ -410,6 +413,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_list (~> 1.0, >= 1.0.4)
+  awesome_print (~> 1.9.2)
   bcrypt (~> 3.1)
   bootsnap (>= 1.4.4)
   brakeman (~> 5.2.1)
@@ -433,6 +437,7 @@ DEPENDENCIES
   pagy (~> 3.11)
   pg (~> 1.1)
   pry-byebug (~> 3.9)
+  pry-rails (~> 0.3.9)
   puma (~> 5.6.2)
   pundit-matchers (~> 1.7.0)
   rails (~> 6.1.5, >= 6.1.5.1)

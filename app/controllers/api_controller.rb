@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ApplicationController < ActionController::API
+class ApiController < ActionController::API
   include SimpleEndpoint::Controller
   include DefaultEndpoint
   include JWTSessions::RailsAuthorization

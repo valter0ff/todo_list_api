@@ -1,0 +1,16 @@
+en:
+  errors:
+    rules:
+      user:
+        rules:
+          username:
+            filled?: Please enter your username
+            size?: Username length must be between 3..50 characters
+            unique_username?: Username already has been taken
+          password:
+            filled?: Please enter your password
+            size?: Password length must be 8 characters
+            format?: Password can consist of digits and alphabetical
+          password_confirmation:
+            filled?: Please enter your password confirmation
+            confirmation: Password confirmation must match password
