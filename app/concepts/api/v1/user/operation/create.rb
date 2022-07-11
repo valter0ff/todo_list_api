@@ -12,7 +12,7 @@ module Api::V1::User::Operation
     def set_model(ctx, params:, **)
       username = params[:username]
       password = params[:password]
-      password_confirmation =  params[:password_confirmation]
+      password_confirmation = params[:password_confirmation]
       ctx[:model] = User.new(username: username, password: password, password_confirmation: password_confirmation)
     end
 
@@ -21,7 +21,7 @@ module Api::V1::User::Operation
     end
 
     def set_semantic(ctx, **)
-      ctx[:semantic_success] == :created
+      ctx[:semantic_success] = :created
     end
   end
 end

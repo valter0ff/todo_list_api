@@ -46,9 +46,6 @@ Layout/LineLength:
 Lint/MissingSuper:
   Enabled: false
 
-Lint/AmbiguousBlockAssociation:
-  IgnoredMethods: [change]
-
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
@@ -66,4 +63,7 @@ Metrics/CyclomaticComplexity:
 Metrics/PerceivedComplexity:
   Exclude:
     - 'app/controllers/concerns/default_endpoint.rb'
+
+Style/ClassAndModuleChildren:
+  Enabled: false
 

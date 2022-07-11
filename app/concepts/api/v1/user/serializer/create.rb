@@ -2,9 +2,8 @@
 
 module Api::V1::User::Serializer
   class Create < ApplicationSerializer
-    attribute :username
+    attributes :username, :created_at, :updated_at
 
     set_type :user
-#     set_id :user.id
   end
 end
