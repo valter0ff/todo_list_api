@@ -1,0 +1,55 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/user":
+    post:
+      summary: Create user
+      tags:
+      - User
+      security:
+      - Bearer: {}
+      parameters: []
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Invalid params
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - user
+              properties:
+                user:
+                  type: object
+                  required:
+                  - username
+                  - password
+                  - password_confirmation
+                  properties:
+                    username:
+                      type: string
+                      example: stepaniexx
+                    password:
+                      type: string
+                      example: qwerty12
+                    password_confirmation:
+                      type: string
+                      example: qwerty12
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000
+components:
+  securitySchemes:
+    Bearer:
+      description: JWT key necessary to use API calls
+      type: apiKey
+      name: Authorization
+      in: header

@@ -37,7 +37,7 @@ RSpec.describe 'api/v1/user', type: :request do
 
         run_test! do
           expect(response).to be_created
-          expect(response).to match_json_schema('users/create')
+          expect(response).to match_json_schema('api/v1/users/create')
         end
       end
 
@@ -46,7 +46,7 @@ RSpec.describe 'api/v1/user', type: :request do
 
         run_test! do
           expect(response).to be_unprocessable
-          expect(response).to match_json_schema('users/errors')
+          expect(response).to match_json_schema('api/v1/users/errors')
         end
       end
     end

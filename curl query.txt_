@@ -1,3 +1,0 @@
-curl --header "Content-Type: application/json" -d "{\"username\":\"valera1234\",\"password\":\"qwerty12\",\"password_confirmation\":\"qwerty12\"}" http://127.0.0.1:3000/api/v1/user
-
-curl -d “username=Alex&password=qwerty12&password_confirmation=qwerty12” -X POST http://127.0.0.1:3000/api/v1/user

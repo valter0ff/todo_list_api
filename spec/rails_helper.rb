@@ -14,7 +14,6 @@ require_relative '../config/environment'
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
 
-Dir['spec/support/helpers/*.rb'].each { |file| require Rails.root.join(file) }
 Dir['spec/support/**/*.rb', 'spec/support/**/**/*.rb', 'spec/support/**/**/**/*.rb'].each do |file|
   require Rails.root.join(file)
 end
@@ -31,3 +30,5 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
 end
+
+require 'swagger_helper'
