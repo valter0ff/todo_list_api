@@ -2,7 +2,8 @@
 
 FactoryBot.define do
   factory :user do
-    email { 'MyString' }
-    password_digest { 'MyString' }
+    username { FFaker::Lorem.word }
+    password { 'qwerty12' }
+    password_confirmation { 'qwerty12' }
   end
 end

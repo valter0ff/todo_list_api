@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "errors": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "array",
+          "items": [
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "password": {
+          "type": "array",
+          "items": [
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "required": [
+        "username",
+        "password"
+      ]
+    }
+  },
+  "required": [
+    "errors"
+  ]
+}

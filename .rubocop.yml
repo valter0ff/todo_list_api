@@ -11,6 +11,9 @@ AllCops:
     - 'bin/**/*'
     - 'vendor/**/*'
 
+RSpec/EmptyExampleGroup:
+  Enabled: false
+
 RSpec/LetSetup:
   Enabled: false
 
