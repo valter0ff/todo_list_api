@@ -4,13 +4,14 @@ en:
       user:
         rules:
           username:
-            filled?: Please enter your username
-            size?: Username length must be between 3..50 characters
-            unique_username?: Username already has been taken
+            filled?: The field is required.
+            min_size?: Username is too short. Minimum 3 characters.
+            max_size?: Username is too long. Maximum 50 characters.
+            unique_username?: This login is already registered. Please, log in.
           password:
-            filled?: Please enter your password
+            filled?: The field is required.
             size?: Password length must be 8 characters
-            format?: Password can consist of digits and alphabetical
+            format?: Password does not meet minimal requirements. The length should be 8 characters, alphanumeric.
           password_confirmation:
-            filled?: Please enter your password confirmation
-            confirmation: Password confirmation must match password
+            filled?: The field is required.
+

@@ -16,8 +16,10 @@ module Api::V1::User::Contract
     validation :size_format, if: :default do
       configure { config.namespace = :user }
 
-      required(:username).value(size?: Constants::User::USER_NAME_SIZE)
-      required(:password).value(size?: Constants::User::PASSWORD_SIZE, format?: Constants::User::PASSWORD_FORMAT)
+      required(:username).value(max_size?: Constants::User::USERNAME_MAX_SIZE,
+                                min_size?: Constants::User::USERNAME_MIN_SIZE)
+      required(:password).value(size?: Constants::User::PASSWORD_SIZE,
+                                format?: Constants::User::PASSWORD_FORMAT)
     end
 
     validation :confirm, if: :size_format do
