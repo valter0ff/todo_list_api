@@ -5,10 +5,8 @@ module Api::V1::CurrentUser::Operation
     step :set_model
     step :serializer
 
-    def set_model(ctx, **)
+    def set_model(ctx, **); end
 
-    end
-
-    def serializer(ctx, model:, **)
-
-    end
+    def serializer(ctx, model:, **); end
+  end
+end

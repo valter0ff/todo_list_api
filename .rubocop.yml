@@ -48,12 +48,19 @@ Layout/LineLength:
 
 Lint/MissingSuper:
   Enabled: false
+  
+Lint/UnreachableCode:
+  Enabled: false
 
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
     - 'config/environments/*.rb'
     - 'config/routes.rb'
+    
+Metrics/MethodLength:
+  Exclude:
+    - 'lib/**/*'
 
 Metrics/AbcSize:
   Exclude:
@@ -66,7 +73,14 @@ Metrics/CyclomaticComplexity:
 Metrics/PerceivedComplexity:
   Exclude:
     - 'app/controllers/concerns/default_endpoint.rb'
+    
+Naming/MethodName:
+  Exclude:
+    - 'lib/**/*'
 
 Style/ClassAndModuleChildren:
+  Enabled: false
+  
+Style/SignalException:
   Enabled: false
 

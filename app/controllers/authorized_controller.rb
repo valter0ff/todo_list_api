@@ -10,6 +10,6 @@ class AuthorizedController < ApiController
   end
 
   def current_user
-    @current_user ||= User.find_by(id: payload['user_id'])
+    @current_user ||= User.find_by(id: payload['user_id']) || raise(JWTSessions::Errors::Unauthorized)
   end
 end

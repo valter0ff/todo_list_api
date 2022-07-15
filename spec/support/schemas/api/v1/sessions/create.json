@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "username": {
+              "type": "string"
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "updated_at": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "username",
+            "created_at",
+            "updated_at"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ]
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "csrf": {
+          "type": "string"
+        },
+        "access": {
+          "type": "string"
+        },
+        "access_expires_at": {
+          "type": "string"
+        },
+        "refresh": {
+          "type": "string"
+        },
+        "refresh_expires_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "csrf",
+        "access",
+        "access_expires_at",
+        "refresh",
+        "refresh_expires_at"
+      ]
+    }
+  },
+  "required": [
+    "data",
+    "meta"
+  ]
+}
