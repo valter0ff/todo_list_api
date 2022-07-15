@@ -62,11 +62,11 @@ RSpec.describe 'api/v1/sessions', type: :request do
       tags 'Sessions'
       consumes 'application/json'
       security [Bearer: {}]
-      parameter name: :authorization, in: :header, type: :string, description: 'Access token'
+      parameter name: :'Authorization', in: :header, type: :string, description: 'Access token'
 
       response '204', 'Session is destroyed' do
         let(:user) { create(:user) }
-        let(:authorization) { create_token(user: user) }
+        let(:'Authorization') { create_token(user: user) }
 
         run_test! do
           expect(response).to be_no_content
@@ -74,7 +74,7 @@ RSpec.describe 'api/v1/sessions', type: :request do
       end
 
       response '401', 'Invalid token' do
-        let(:authorization) { nil }
+        let(:'Authorization') { nil }
 
         run_test! do
           expect(response).to be_unauthorized

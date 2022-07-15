@@ -40,6 +40,10 @@ Rails/FilePath:
 
 Rails/LexicallyScopedActionFilter:
   Enabled: false
+  
+RSpec/VariableName:
+  Exclude:
+    - 'spec/**/**/**/*'
 
 Layout/LineLength:
   Max: 120
@@ -83,4 +87,8 @@ Style/ClassAndModuleChildren:
   
 Style/SignalException:
   Enabled: false
+  
+Style/SymbolLiteral:
+  Exclude:
+    - 'spec/**/**/**/*'
 

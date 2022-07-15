@@ -4,6 +4,53 @@ info:
   title: API V1
   version: v1
 paths:
+  "/api/v1/session":
+    post:
+      summary: Create session
+      tags:
+      - Sessions
+      security:
+      - Bearer: {}
+      parameters: []
+      responses:
+        '201':
+          description: Session is created
+        '404':
+          description: Not found
+        '401':
+          description: Invalid credentials
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - username
+              - password
+              properties:
+                username:
+                  type: string
+                  example: katrice_wildermanxx
+                password:
+                  type: string
+                  example: qwerty12
+    delete:
+      summary: Destroys session
+      tags:
+      - Sessions
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        description: Access token
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Session is destroyed
+        '401':
+          description: Invalid token
   "/api/v1/user":
     post:
       summary: Create user
@@ -34,7 +81,7 @@ paths:
                   properties:
                     username:
                       type: string
-                      example: stepaniexx
+                      example: rosalyn.ryanxx
                     password:
                       type: string
                       example: qwerty12
@@ -42,14 +89,7 @@ paths:
                       type: string
                       example: qwerty12
 servers:
-- url: http://{defaultHost}
+- url: https://{defaultHost}
   variables:
     defaultHost:
-      default: localhost:3000
-components:
-  securitySchemes:
-    Bearer:
-      description: JWT key necessary to use API calls
-      type: apiKey
-      name: Authorization
-      in: header
+      default: www.example.com
