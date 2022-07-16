@@ -11,4 +11,8 @@ RSpec.describe User, type: :model do
   describe 'database indexes exists' do
     it { is_expected.to have_db_index(:username) }
   end
+
+  describe 'associations' do
+    it { is_expected.to have_many(:projects).dependent(:destroy) }
+  end
 end

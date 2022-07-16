@@ -3,5 +3,6 @@
 FactoryBot.define do
   factory :project do
     title { FFaker::Lorem.word }
+    user
   end
 end
