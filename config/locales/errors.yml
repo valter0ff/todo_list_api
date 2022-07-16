@@ -1,5 +1,6 @@
 en:
   errors:
+    unprocessable: Unprocessable request
     rules:
       user:
         rules:

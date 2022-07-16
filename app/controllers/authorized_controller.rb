@@ -6,7 +6,7 @@ class AuthorizedController < ApiController
   private
 
   def endpoint_options
-    { current_user_account: current_user_account, params: params }
+    { current_user: current_user, params: params }
   end
 
   def current_user

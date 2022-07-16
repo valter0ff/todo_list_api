@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resource :user, only: %i[create]
       resource :session, only: %i[create destroy]
       resource :current_user, only: %i[show]
+      resources :projects
     end
   end
 end
