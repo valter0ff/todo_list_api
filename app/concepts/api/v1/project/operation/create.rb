@@ -13,7 +13,6 @@ module Api::V1::Project::Operation
     def build_project(ctx, current_user:, **)
       ctx[:model] = current_user.projects.build
     end
-
     def set_serializer(ctx, model:, **)
       ctx[:serializer] = Api::V1::Project::Serializer::Save.new(model)
     end
