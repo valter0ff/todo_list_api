@@ -10,7 +10,6 @@ RSpec.describe 'api/v1/project', type: :request do
       }
     end
   end
-
   path '/api/v1/projects' do
     post 'Create project' do
       tags 'Project'
