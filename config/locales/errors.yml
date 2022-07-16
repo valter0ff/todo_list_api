@@ -17,5 +17,8 @@ en:
             filled?: The field is required.
             eql?: Password and Confirm password fields does not match.
       session:
-        unauthorized: ​Incorrect login or(and) password
-
+        unauthorized: Incorrect login or(and) password
+      project:
+        rules:
+          title:
+            filled?: The field is required.

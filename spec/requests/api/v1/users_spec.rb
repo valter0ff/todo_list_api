@@ -49,15 +49,6 @@ RSpec.describe 'api/v1/user', type: :request do
           expect(response).to match_json_schema('api/v1/users/errors')
         end
       end
-      
-      response '422', 'Invalid params key' do
-        let(:params) { attributes_for(:user) }
-
-        run_test! do
-          expect(response).to be_unprocessable
-          expect(response).to match_json_schema('api/v1/shared/errors')
-        end
-      end
     end
   end
 end

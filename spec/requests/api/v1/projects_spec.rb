@@ -10,7 +10,7 @@ RSpec.describe 'api/v1/project', type: :request do
       }
     end
   end
-  
+
   path '/api/v1/projects' do
     post 'Create project' do
       tags 'Project'
@@ -21,10 +21,10 @@ RSpec.describe 'api/v1/project', type: :request do
         type: :object,
         required: %w[project],
         properties: {
-          title: { type: :string, example: FFaker::Lorem.word },
+          title: { type: :string, example: FFaker::Lorem.word }
         }
       }
-      
+
       response '201', 'Project is created' do
         let(:user) { create(:user) }
         let(:'Authorization') { create_token(user: user) }
@@ -46,17 +46,6 @@ RSpec.describe 'api/v1/project', type: :request do
           expect(response).to match_json_schema('api/v1/projects/errors')
         end
       end
-      
-      response '422', 'Invalid params key' do
-        let(:user) { create(:user) }
-        let(:'Authorization') { create_token(user: user) }
-        let(:params) { { title: FFaker::Lorem.word } }
-
-        run_test! do
-          expect(response).to be_unprocessable
-          expect(response).to match_json_schema('api/v1/shared/errors')
-        end
-      end
 
       response '401', 'Invalid token' do
         let(:'Authorization') { nil }
@@ -69,4 +58,3 @@ RSpec.describe 'api/v1/project', type: :request do
     end
   end
 end
-

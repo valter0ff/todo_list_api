@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
-RSpec.describe Api::V1::User::Operation::Create do
-  let(:result) { described_class.call(params: params) }
+RSpec.describe Api::V1::Project::Operation::Create do
+  let(:result) { described_class.call(params: params, current_user: user) }
+  let(:user) { create(:user) }
 
   describe '.call' do
     context 'when params are valid' do
-      let(:params) { { user: attributes_for(:user) } }
+      let(:params) { { project: attributes_for(:project) } }
 
       it 'operation result successfull' do
         expect(result).to be_success
@@ -13,16 +14,15 @@ RSpec.describe Api::V1::User::Operation::Create do
         expect(result[:model]).to be_persisted
       end
 
-      it 'creates new user in database' do
-        expect { result }.to change(User, :count).by(1)
+      it 'creates new project in database' do
+        expect { result }.to change(Project, :count).by(1)
       end
     end
 
     context 'when params are invalid' do
-      let(:params) { { user: {} } }
+      let(:params) { { project: {} } }
       let(:result_errors) { result['contract.default'].errors.messages }
-      let(:empty_username_error) { I18n.t('errors.rules.user.rules.username.filled?') }
-      let(:empty_password_error) { I18n.t('errors.rules.user.rules.password.filled?') }
+      let(:empty_title_error) { I18n.t('errors.rules.project.rules.title.filled?') }
 
       it 'operation result failed' do
         expect(result).to be_failure
@@ -30,15 +30,14 @@ RSpec.describe Api::V1::User::Operation::Create do
 
       it 'assigns errors to result errors hash' do
         expect(result_errors).not_to be_empty
-        expect(result_errors[:username].first).to eq(empty_username_error)
-        expect(result_errors[:password].first).to eq(empty_password_error)
+        expect(result_errors[:title].first).to eq(empty_title_error)
       end
 
-      it 'doesn`t create new user in database' do
-        expect { result }.not_to change(User, :count)
+      it 'doesn`t create new project in database' do
+        expect { result }.not_to change(Project, :count)
       end
 
-      context 'when params hasn`t key `user`' do
+      context 'when params hasn`t key `project`' do
         let(:params) { {} }
         let(:unprocessable_request_error) { I18n.t('errors.unprocessable') }
 

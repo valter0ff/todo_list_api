@@ -4,6 +4,37 @@ info:
   title: API V1
   version: v1
 paths:
+  "/api/v1/projects":
+    post:
+      summary: Create project
+      tags:
+      - Project
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        description: Access token
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Project is created
+        '422':
+          description: Invalid parameters
+        '401':
+          description: Invalid token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - project
+              properties:
+                title:
+                  type: string
+                  example: dolorem
   "/api/v1/session":
     post:
       summary: Create session
