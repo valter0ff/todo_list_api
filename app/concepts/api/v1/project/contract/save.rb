@@ -9,5 +9,17 @@ module Api::V1::Project::Contract
 
       required(:title).filled(:str?)
     end
+
+    validation :uniqueness, if: :default do
+      configure do
+        config.namespace = :project
+
+        def unique_title?(value)
+          Project.where(title: value).empty?
+        end
+      end
+
+      required(:title).value(unique_title?: :title)
+    end
   end
 end

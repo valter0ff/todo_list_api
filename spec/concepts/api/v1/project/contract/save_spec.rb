@@ -21,6 +21,8 @@ RSpec.describe Api::V1::Project::Contract::Save do
     end
 
     describe 'attributes validations' do
+      let(:errors_path) { %w[errors rules project rules] }
+
       before { contract.validate(params) }
 
       context 'when params are valid' do
@@ -31,13 +33,22 @@ RSpec.describe Api::V1::Project::Contract::Save do
         end
       end
 
-      context 'when params are invalid' do
+      context 'when title is blank' do
         let(:params) { { title: '' } }
-        let(:errors_path) { %w[errors rules project rules] }
         let(:title_blank_error) { I18n.t('title.filled?', scope: errors_path) }
 
         it 'returns errors' do
           expect(contract.errors.messages[:title].first).to eq(title_blank_error)
+        end
+      end
+
+      context 'when title is not unique' do
+        let!(:project) { create(:project) }
+        let(:params) { { title: project.title } }
+        let(:title_unique_error) { I18n.t('title.unique_title?', scope: errors_path) }
+
+        it 'returns error' do
+          expect(contract.errors.messages[:title].first).to eq(title_unique_error)
         end
       end
     end

@@ -22,3 +22,4 @@ en:
         rules:
           title:
             filled?: The field is required.
+            unique_title?: The project with such name does already exist.

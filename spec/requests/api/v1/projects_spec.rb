@@ -47,6 +47,18 @@ RSpec.describe 'api/v1/project', type: :request do
         end
       end
 
+      response '422', 'Project title already exists' do
+        let(:user) { create(:user) }
+        let!(:project) { create(:project, user: user) }
+        let(:'Authorization') { create_token(user: user) }
+        let(:params) { { project: { title: project.title } } }
+
+        run_test! do
+          expect(response).to be_unprocessable
+          expect(response).to match_json_schema('api/v1/projects/errors')
+        end
+      end
+
       response '401', 'Invalid token' do
         let(:'Authorization') { nil }
         let(:params) { { project: { title: FFaker::Lorem.word } } }
