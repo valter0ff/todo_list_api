@@ -5,3 +5,4 @@ class Api::V1::CurrentUsersController < AuthorizedController
     endpoint operation: Api::V1::CurrentUser::Operation::Show
   end
 end
+
