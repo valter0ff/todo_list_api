@@ -10,6 +10,7 @@ RSpec.describe 'api/v1/project', type: :request do
       }
     end
   end
+
   path '/api/v1/projects' do
     post 'Create project' do
       tags 'Project'
@@ -225,7 +226,7 @@ RSpec.describe 'api/v1/project', type: :request do
   end
 
   path '/api/v1/projects/{id}' do
-    delete 'Update project' do
+    delete 'Destroy project' do
       tags 'Project'
       consumes 'application/json'
       security [Bearer: {}]

@@ -1,3 +1,5 @@
+
+
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
@@ -29,12 +31,64 @@
             "created_at",
             "updated_at"
           ]
+        },
+        "relationships": {
+          "type": "object",
+          "properties": {
+            "projects": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "type"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "type"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "data"
+              ]
+            }
+          },
+          "required": [
+            "projects"
+          ]
         }
       },
       "required": [
         "id",
         "type",
-        "attributes"
+        "attributes",
+        "relationships"
       ]
     },
     "meta": {
@@ -63,10 +117,87 @@
         "refresh",
         "refresh_expires_at"
       ]
+    },
+    "included": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "attributes": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "created_at": {
+                  "type": "string"
+                },
+                "updated_at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "title",
+                "created_at",
+                "updated_at"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "attributes"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "attributes": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "created_at": {
+                  "type": "string"
+                },
+                "updated_at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "title",
+                "created_at",
+                "updated_at"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "attributes"
+          ]
+        }
+      ]
     }
   },
   "required": [
     "data",
-    "meta"
+    "meta",
+    "included"
   ]
 }
+
