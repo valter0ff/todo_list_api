@@ -223,4 +223,45 @@ RSpec.describe 'api/v1/project', type: :request do
       end
     end
   end
+
+  path '/api/v1/projects/{id}' do
+    delete 'Update project' do
+      tags 'Project'
+      consumes 'application/json'
+      security [Bearer: {}]
+      parameter name: :'Authorization', in: :header, type: :string, description: 'Access token'
+      parameter name: :id, in: :path, schema: { type: :integer, example: rand(1..100) }
+
+      response '204', 'Project is destroyed' do
+        let(:user) { create(:user) }
+        let(:project) { create(:project, user: user) }
+        let(:id) { project.id }
+        let(:'Authorization') { create_token(user: user) }
+
+        run_test! do
+          expect(response).to be_no_content
+        end
+      end
+
+      response '404', 'Invalid id' do
+        let(:user) { create(:user) }
+        let(:id) { rand(100) }
+        let(:'Authorization') { create_token(user: user) }
+        let(:params) { { project: { title: nil } } }
+
+        run_test! do
+          expect(response).to be_not_found
+        end
+      end
+
+      response '401', 'Invalid token' do
+        let(:id) { rand(100) }
+        let(:'Authorization') { nil }
+
+        run_test! do
+          expect(response).to be_unauthorized
+        end
+      end
+    end
+  end
 end
