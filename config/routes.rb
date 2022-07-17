@@ -8,7 +8,9 @@ Rails.application.routes.draw do
       resource :user, only: %i[create]
       resource :session, only: %i[create destroy]
       resource :current_user, only: %i[show]
-      resources :projects
+      resources :projects, except: %i[index edit] do
+        resources :tasks, shallow: true, only: %i[create update destroy]
+      end
     end
   end
 end
