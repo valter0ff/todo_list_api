@@ -3,7 +3,7 @@
 module Api::V1::Task::Operation
   class Index < ApplicationOperation
     step :find_project
-    fail Macro::Semantic(failure: :not_found), fail_fast: true
+    fail Macro::Semantic(failure: :not_found)
     step :assign_tasks
     pass :set_serializer
     pass Macro::Semantic(success: :ok)
