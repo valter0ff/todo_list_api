@@ -27,3 +27,4 @@ en:
         rules:
           name:
             filled?: The field is required.
+            active?: The task is done. You can`t edit completed task. 
