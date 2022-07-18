@@ -39,7 +39,7 @@ paths:
         '201':
           description: Project is created
         '422':
-          description: Invalid parameters
+          description: Project title already exists
         '401':
           description: Invalid token
       requestBody:

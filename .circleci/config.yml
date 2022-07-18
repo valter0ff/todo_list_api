@@ -9,7 +9,7 @@ jobs:
           BUNDLE_PATH: vendor/bundle
           RAILS_ENV: test
           PGHOST: 127.0.0.1
-          PGUSER: $POSTGRES_USER
+          PGUSER: postgres
 
       - image: circleci/postgres:11-alpine
         environment:
