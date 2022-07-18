@@ -34,16 +34,6 @@ RSpec.describe Api::V1::Project::Contract::Save do
       it 'returns error' do
         expect(contract.errors.messages[:title].first).to eq(title_unique_error)
       end
-
-      context 'when title is not unique' do
-        let!(:project) { create(:project) }
-        let(:params) { { title: project.title } }
-        let(:title_unique_error) { I18n.t('title.unique_title?', scope: errors_path) }
-
-        it 'returns error' do
-          expect(contract.errors.messages[:title].first).to eq(title_unique_error)
-        end
-      end
     end
   end
 end
