@@ -10,6 +10,7 @@ RSpec.describe 'api/v1/project', type: :request do
       }
     end
   end
+
   path '/api/v1/projects' do
     post 'Create project' do
       tags 'Project'
@@ -103,7 +104,7 @@ RSpec.describe 'api/v1/project', type: :request do
         let(:project) { create(:project, user: user) }
         let(:id) { project.id }
         let(:'Authorization') { create_token(user: user) }
-        let(:params) { { project: { title: FFaker::Lorem.word } } }
+        let(:params) { { project: { title: FFaker::Name.unique.name } } }
 
         run_test! do
           expect(response).to be_ok
@@ -125,9 +126,10 @@ RSpec.describe 'api/v1/project', type: :request do
       response '422', 'Project title already exists' do
         let(:user) { create(:user) }
         let(:project) { create(:project, user: user) }
+        let(:another_project) { create(:project, user: user) }
         let(:id) { project.id }
         let(:'Authorization') { create_token(user: user) }
-        let(:params) { { project: { title: project.title } } }
+        let(:params) { { project: { title: another_project.title } } }
 
         run_test! do
           expect(response).to be_unprocessable
