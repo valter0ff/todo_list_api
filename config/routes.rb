@@ -9,7 +9,9 @@ Rails.application.routes.draw do
       resource :session, only: %i[create destroy]
       resource :current_user, only: %i[show]
       resources :projects, except: %i[index edit show] do
-        resources :tasks, shallow: true, except: %i[edit show]
+        resources :tasks, shallow: true, except: %i[edit show] do
+          put 'is_done', on: :member
+        end
       end
     end
   end

@@ -106,4 +106,37 @@ RSpec.describe 'api/v1/task', type: :request do
       end
     end
   end
+
+  path '/api/v1/tasks/{id}/is_done' do
+    put 'Update task status' do
+      tags 'Task'
+      consumes 'application/json'
+      security [Bearer: {}]
+      parameter name: :'Authorization', in: :header, type: :string, description: 'Access token'
+      parameter name: :id, in: :path, schema: { type: :integer, example: rand(1..100) }
+
+      response '200', 'Task status changed' do
+        let(:user) { create(:user) }
+        let(:'Authorization') { create_token(user: user) }
+        let(:project) { create(:project, :with_tasks, user: user) }
+        let(:id) { project.tasks.first.id }
+
+        run_test! do
+          expect(response).to be_ok
+          expect(response).to match_json_schema('api/v1/tasks/is_done')
+        end
+      end
+
+      response '404', 'Invalid task id' do
+        let(:user) { create(:user) }
+        let(:'Authorization') { create_token(user: user) }
+        let!(:project) { create(:project, :with_tasks, user: user) }
+        let(:id) { rand(1..100) }
+
+        run_test! do
+          expect(response).to be_not_found
+        end
+      end
+    end
+  end
 end

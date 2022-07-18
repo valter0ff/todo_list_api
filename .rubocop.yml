@@ -82,6 +82,9 @@ Naming/MethodName:
   Exclude:
     - 'lib/**/*'
 
+Naming/PredicateName:
+  AllowedMethods: is_done
+
 Style/ClassAndModuleChildren:
   Enabled: false
   
