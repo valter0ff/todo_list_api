@@ -42,10 +42,12 @@ gem 'rswag', '~> 2.4.0'
 gem 'acts_as_list', '~> 1.0', '>= 1.0.4'
 
 group :development, :test do
+  gem 'awesome_print', '~>1.9.2'
   gem 'bullet', '~> 6.1'
   gem 'factory_bot_rails', '~> 6.1'
   gem 'ffaker', '~> 2.18'
   gem 'pry-byebug', '~> 3.9'
+  gem 'pry-rails', '~> 0.3.9'
 
   # Code quality
   gem 'brakeman', '~> 5.2.1', require: false

@@ -1,0 +1,18 @@
+en:
+  errors:
+    rules:
+      user:
+        rules:
+          username:
+            filled?: The field is required.
+            min_size?: Username is too short. Minimum 3 characters.
+            max_size?: Username is too long. Maximum 50 characters.
+            unique_username?: This login is already registered. Please, log in.
+          password:
+            filled?: The field is required.
+            size?: Password length must be 8 characters
+            format?: Password does not meet minimal requirements. The length should be 8 characters, alphanumeric.
+          password_confirmation:
+            filled?: The field is required.
+            eql?: Password and Confirm password fields does not match.
+
