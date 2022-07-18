@@ -23,7 +23,7 @@ RSpec.describe Api::V1::Task::Operation::Create do
     context 'when task name is invalid' do
       let(:params) { { project_id: project.id, task: { name: nil } } }
       let(:result_errors) { result['contract.default'].errors.messages }
-      let(:empty_name_error) { I18n.t('errors.rules.project.rules.title.filled?') }
+      let(:empty_name_error) { I18n.t('errors.rules.task.rules.name.filled?') }
 
       it 'operation result failed' do
         expect(result).to be_failure

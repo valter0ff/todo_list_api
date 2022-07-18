@@ -63,7 +63,7 @@ RSpec.describe 'api/v1/task', type: :request do
         let(:'Authorization') { create_token(user: user) }
         let(:project) { create(:project, user: user) }
         let(:project_id) { project.id }
-        let(:params) { { task: { name: FFaker::Lorem.word } } }
+        let(:params) { { task: { name: FFaker::Name.unique.name } } }
 
         run_test! do
           expect(response).to be_created
@@ -135,6 +135,62 @@ RSpec.describe 'api/v1/task', type: :request do
 
         run_test! do
           expect(response).to be_not_found
+        end
+      end
+    end
+  end
+
+  path '/api/v1/tasks/{id}' do
+    put 'Update task' do
+      tags 'Task'
+      consumes 'application/json'
+      security [Bearer: {}]
+      parameter name: :'Authorization', in: :header, type: :string, description: 'Access token'
+      parameter name: :id, in: :path, schema: { type: :integer, example: rand(1..100) }
+      parameter name: :params, in: :body, schema: {
+        type: :object,
+        required: %w[task],
+        properties: {
+          name: { type: :string, example: FFaker::Lorem.word }
+        }
+      }
+
+      response '200', 'Task updated' do
+        let(:user) { create(:user) }
+        let(:'Authorization') { create_token(user: user) }
+        let(:project) { create(:project, :with_tasks, user: user) }
+        let(:id) { project.tasks.first.id }
+        let(:params) { { task: { name: FFaker::Name.unique.name } } }
+
+        run_test! do
+          expect(response).to be_ok
+          expect(response).to match_json_schema('api/v1/tasks/create')
+        end
+      end
+
+      response '404', 'Invalid task id' do
+        let(:user) { create(:user) }
+        let(:'Authorization') { create_token(user: user) }
+        let!(:project) { create(:project, :with_tasks, user: user) }
+        let(:id) { rand(1..100) }
+        let(:params) { { task: { name: FFaker::Name.unique.name } } }
+
+        run_test! do
+          expect(response).to be_not_found
+        end
+      end
+
+      response '422', 'Task already completed' do
+        let(:user) { create(:user) }
+        let(:'Authorization') { create_token(user: user) }
+        let(:project) { create(:project, user: user) }
+        let(:task) { create(:task, :is_done, project: project) }
+        let(:id) { task.id }
+        let(:params) { { task: { name: FFaker::Name.unique.name } } }
+
+        run_test! do
+          expect(response).to be_unprocessable
+          expect(response).to match_json_schema('api/v1/tasks/task_complete_error')
         end
       end
     end
