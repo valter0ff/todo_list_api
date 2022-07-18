@@ -12,10 +12,11 @@ module Api::V1::Project::Contract
 
     validation :uniqueness, if: :default do
       configure do
+        option :form
         config.namespace = :project
 
         def unique_title?(value)
-          Project.where(title: value).empty?
+          !Project.where.not(id: form.model.id).exists?(title: value)
         end
       end
 

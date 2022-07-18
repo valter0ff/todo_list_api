@@ -56,7 +56,7 @@ RSpec.describe 'api/v1/user', type: :request do
 
         run_test! do
           expect(response).to be_unprocessable
-          # expect(response).to match_json_schema('api/v1/users/errors')
+          expect(response).to match_json_schema('api/v1/users/unique_name_errors')
         end
       end
     end

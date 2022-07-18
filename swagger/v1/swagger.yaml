@@ -4,6 +4,24 @@ info:
   title: API V1
   version: v1
 paths:
+  "/api/v1/current_user":
+    get:
+      summary: Show current user
+      tags:
+      - Current user
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        description: Access token
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Current user is returned
+        '401':
+          description: Invalid token
   "/api/v1/projects":
     post:
       summary: Create project
@@ -21,7 +39,7 @@ paths:
         '201':
           description: Project is created
         '422':
-          description: Project title already exists
+          description: Invalid parameters
         '401':
           description: Invalid token
       requestBody:
@@ -34,7 +52,7 @@ paths:
               properties:
                 title:
                   type: string
-                  example: voluptate
+                  example: at
   "/api/v1/session":
     post:
       summary: Create session
@@ -63,7 +81,7 @@ paths:
               properties:
                 username:
                   type: string
-                  example: montexx
+                  example: carletta_hodkiewiczxx
                 password:
                   type: string
                   example: qwerty12
@@ -114,7 +132,7 @@ paths:
                   properties:
                     username:
                       type: string
-                      example: kindra.framixx
+                      example: abbie.schulistxx
                     password:
                       type: string
                       example: qwerty12

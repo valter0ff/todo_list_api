@@ -37,25 +37,27 @@ RSpec.describe 'api/v1/project', type: :request do
       end
 
       response '422', 'Invalid parameters' do
-        let(:user) { create(:user) }
-        let(:'Authorization') { create_token(user: user) }
-        let(:params) { { project: { title: nil } } }
+        context 'when title is invalid' do
+          let(:user) { create(:user) }
+          let(:'Authorization') { create_token(user: user) }
+          let(:params) { { project: { title: nil } } }
 
-        run_test! do
-          expect(response).to be_unprocessable
-          expect(response).to match_json_schema('api/v1/projects/errors')
+          run_test! do
+            expect(response).to be_unprocessable
+            expect(response).to match_json_schema('api/v1/projects/errors')
+          end
         end
-      end
 
-      response '422', 'Project title already exists' do
-        let(:user) { create(:user) }
-        let!(:project) { create(:project, user: user) }
-        let(:'Authorization') { create_token(user: user) }
-        let(:params) { { project: { title: project.title } } }
+        context 'when project with provided title already exists' do
+          let(:user) { create(:user) }
+          let!(:project) { create(:project, user: user) }
+          let(:'Authorization') { create_token(user: user) }
+          let(:params) { { project: { title: project.title } } }
 
-        run_test! do
-          expect(response).to be_unprocessable
-          expect(response).to match_json_schema('api/v1/projects/errors')
+          run_test! do
+            expect(response).to be_unprocessable
+            expect(response).to match_json_schema('api/v1/projects/errors')
+          end
         end
       end
 
