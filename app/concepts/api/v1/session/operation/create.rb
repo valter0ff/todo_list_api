@@ -13,10 +13,6 @@ module Api::V1::Session::Operation
     pass :set_serializer
     pass Macro::Semantic(success: :created)
 
-    def prepare_params(_ctx, params:, **)
-      params[:username] = params[:username].strip
-    end
-
     def set_model(ctx, params:, **)
       ctx[:model] = User.find_by(username: params[:username])
     end

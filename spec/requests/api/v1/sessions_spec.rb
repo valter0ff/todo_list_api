@@ -37,11 +37,10 @@ RSpec.describe 'api/v1/sessions', type: :request do
       end
 
       response '404', 'Not found' do
-        let(:credentials) { { username: FFaker::Internet.user_name, password: FFaker::Lorem.word } }
+        let(:credentials) { { username: FFaker::Internet.unique.user_name, password: FFaker::Lorem.word } }
 
         run_test! do
           expect(response).to be_not_found
-          # expect(response).to match_json_schema('api/v1/errors')
         end
       end
 
@@ -51,7 +50,15 @@ RSpec.describe 'api/v1/sessions', type: :request do
 
         run_test! do
           expect(response).to be_unauthorized
-          # expect(response).to match_json_schema('api/v1/errors')
+        end
+      end
+
+      response '422', 'Blank username and password' do
+        let(:credentials) { { username: '', password: '' } }
+
+        run_test! do
+          expect(response).to be_unprocessable
+          expect(response).to match_json_schema('api/v1/sessions/errors')
         end
       end
     end
@@ -78,7 +85,6 @@ RSpec.describe 'api/v1/sessions', type: :request do
 
         run_test! do
           expect(response).to be_unauthorized
-          # expect(response).to match_json_schema('api/v1/errors')
         end
       end
     end
