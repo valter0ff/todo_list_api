@@ -10,7 +10,7 @@ RSpec.describe Api::V1::User::Contract::Create do
       let(:params) { attributes_for(:user) }
 
       it 'returns true' do
-        expect(contract.validate(params)).to be true
+        expect(contract.validate(params)).to be_truthy
       end
     end
 
@@ -18,7 +18,7 @@ RSpec.describe Api::V1::User::Contract::Create do
       let(:params) { {} }
 
       it 'returns false' do
-        expect(contract.validate(params)).to be false
+        expect(contract.validate(params)).to be_falsey
       end
     end
 

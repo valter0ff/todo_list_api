@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :user do
-    username { FFaker::Lorem.word }
+    username { FFaker::Name.unique.name }
     password { 'qwerty12' }
     password_confirmation { 'qwerty12' }
   end
