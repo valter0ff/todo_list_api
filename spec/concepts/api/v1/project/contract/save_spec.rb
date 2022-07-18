@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe Api::V1::Project::Contract::Save do
-  let(:contract) { described_class.new(Project.new) }
+  let(:contract) { described_class.new(Project.new(user: user)) }
+  let(:user) { create(:user) }
 
   describe 'attributes validations' do
     let(:errors_path) { %w[errors rules project rules] }
@@ -26,7 +27,7 @@ RSpec.describe Api::V1::Project::Contract::Save do
     end
 
     context 'when title is not unique' do
-      let!(:project) { create(:project) }
+      let(:project) { create(:project, user: user) }
       let(:params) { { title: project.title } }
       let(:title_unique_error) { I18n.t('title.unique_title?', scope: errors_path) }
 

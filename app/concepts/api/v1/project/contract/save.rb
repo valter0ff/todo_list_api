@@ -16,7 +16,7 @@ module Api::V1::Project::Contract
         config.namespace = :project
 
         def unique_title?(value)
-          !Project.where.not(id: form.model.id).exists?(title: value)
+          !Project.where(user_id: form.model.user_id).where.not(id: form.model.id).exists?(title: value)
         end
       end
 

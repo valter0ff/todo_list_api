@@ -36,15 +36,32 @@ RSpec.describe Api::V1::Project::Operation::Create do
       it 'doesn`t create new project in database' do
         expect { result }.not_to change(Project, :count)
       end
+    end
 
-      context 'when params hasn`t key `project`' do
-        let(:params) { {} }
-        let(:unprocessable_request_error) { I18n.t('errors.unprocessable') }
+    context 'when project title is not unique' do
+      let(:another_project) { create(:project, user: user) }
+      let(:params) { { project: { title: another_project.title } } }
+      let(:result_errors) { result['contract.default'].errors.messages }
+      let(:unique_title_error) { I18n.t('errors.rules.project.rules.title.unique_title?') }
 
-        it 'operation result failed' do
-          expect(result).to be_failure
-          expect(result_errors[:base]).to eq(unprocessable_request_error)
-        end
+      it 'operation result failed' do
+        expect(result).to be_failure
+      end
+
+      it 'assigns errors to result errors hash' do
+        expect(result_errors).not_to be_empty
+        expect(result_errors[:title].first).to eq(unique_title_error)
+      end
+    end
+
+    context 'when params hasn`t key `project`' do
+      let(:params) { {} }
+      let(:result_errors) { result['contract.default'].errors.messages }
+      let(:unprocessable_request_error) { I18n.t('errors.unprocessable') }
+
+      it 'operation result failed' do
+        expect(result).to be_failure
+        expect(result_errors[:base]).to eq(unprocessable_request_error)
       end
     end
   end
