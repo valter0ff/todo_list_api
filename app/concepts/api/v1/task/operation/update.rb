@@ -19,4 +19,4 @@ module Api::V1::Task::Operation
       ctx[:serializer] = Api::V1::Task::Serializer::Show.new(model)
     end
   end
-end 
+end

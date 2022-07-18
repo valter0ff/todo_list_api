@@ -12,7 +12,7 @@ class Api::V1::TasksController < AuthorizedController
   def is_done
     endpoint operation: Api::V1::Task::Operation::IsDone
   end
-  
+
   def update
     endpoint operation: Api::V1::Task::Operation::Update
   end

@@ -7,7 +7,7 @@ module Api::V1::Task::Contract
     validation :status do
       configure do
         config.namespace = :task
-        
+
         def active?(value)
           value == 'active'
         end
@@ -15,11 +15,11 @@ module Api::V1::Task::Contract
 
       required(:status).value(active?: :status)
     end
-    
+
     validation :default, if: :status do
       configure { config.namespace = :task }
 
       required(:name).filled(:str?)
     end
   end
-end 
+end
