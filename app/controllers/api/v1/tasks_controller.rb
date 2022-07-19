@@ -16,4 +16,8 @@ class Api::V1::TasksController < AuthorizedController
   def update
     endpoint operation: Api::V1::Task::Operation::Update
   end
+
+  def set_deadline
+    endpoint operation: Api::V1::Task::Operation::SetDeadline
+  end
 end

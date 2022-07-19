@@ -28,4 +28,6 @@ en:
           name:
             filled?: The field is required.
           status:
-            is_done?: The task is done. You can`t edit completed task. 
+            is_done?: The task is done. You can`t edit completed task.
+          deadline:
+            gteq?: Deadline cann`t be in past

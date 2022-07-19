@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resources :projects, except: %i[index edit show] do
         resources :tasks, shallow: true, except: %i[edit show] do
           put 'is_done', on: :member
+          put 'set_deadline', on: :member
         end
       end
     end
