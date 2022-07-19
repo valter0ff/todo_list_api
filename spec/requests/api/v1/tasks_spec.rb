@@ -195,4 +195,73 @@ RSpec.describe 'api/v1/task', type: :request do
       end
     end
   end
+
+  path '/api/v1/tasks/{id}/set_deadline' do
+    put 'Set task deadline' do
+      tags 'Task'
+      consumes 'application/json'
+      security [Bearer: {}]
+      parameter name: :'Authorization', in: :header, type: :string, description: 'Access token'
+      parameter name: :id, in: :path, schema: { type: :integer, example: rand(1..100) }
+      parameter name: :params, in: :body, schema: {
+        type: :object,
+        required: %w[task],
+        properties: {
+          deadline: { type: :string, example: DateTime.now.to_s }
+        }
+      }
+
+      response '200', 'Task deadline updated' do
+        let(:user) { create(:user) }
+        let(:'Authorization') { create_token(user: user) }
+        let(:project) { create(:project, :with_tasks, user: user) }
+        let(:id) { project.tasks.first.id }
+        let(:params) { { task: { deadline: DateTime.now.next_week.to_s } } }
+
+        run_test! do
+          expect(response).to be_ok
+          expect(response).to match_json_schema('api/v1/tasks/set_deadline')
+        end
+      end
+
+      response '404', 'Invalid task id' do
+        let(:user) { create(:user) }
+        let(:'Authorization') { create_token(user: user) }
+        let!(:project) { create(:project, :with_tasks, user: user) }
+        let(:id) { rand(1..100) }
+        let(:params) { { task: { deadline: DateTime.now.to_s } } }
+
+        run_test! do
+          expect(response).to be_not_found
+        end
+      end
+
+      response '422', 'Task already completed' do
+        let(:user) { create(:user) }
+        let(:'Authorization') { create_token(user: user) }
+        let(:project) { create(:project, user: user) }
+        let(:task) { create(:task, :is_done, project: project) }
+        let(:id) { task.id }
+        let(:params) { { task: { deadline: DateTime.now.to_s } } }
+
+        run_test! do
+          expect(response).to be_unprocessable
+          expect(response).to match_json_schema('api/v1/tasks/task_complete_error')
+        end
+      end
+
+      response '422', 'Blank deadline parameter' do
+        let(:user) { create(:user) }
+        let(:'Authorization') { create_token(user: user) }
+        let(:project) { create(:project, :with_tasks, user: user) }
+        let(:id) { project.tasks.first.id }
+        let(:params) { { task: { deadline: '' } } }
+
+        run_test! do
+          expect(response).to be_unprocessable
+          expect(response).to match_json_schema('api/v1/tasks/deadline_error')
+        end
+      end
+    end
+  end
 end
