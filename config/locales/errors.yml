@@ -31,3 +31,4 @@ en:
             is_done?: The task is done. You can`t edit completed task.
           deadline:
             gteq?: Deadline cann`t be in past
+            filled?: The field is required.

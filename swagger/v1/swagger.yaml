@@ -52,7 +52,7 @@ paths:
               properties:
                 title:
                   type: string
-                  example: maxime
+                  example: vel
   "/api/v1/projects/{id}":
     put:
       summary: Update project
@@ -70,7 +70,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 67
+          example: 24
         required: true
       responses:
         '200':
@@ -91,7 +91,7 @@ paths:
               properties:
                 title:
                   type: string
-                  example: sit
+                  example: nam
     delete:
       summary: Destroy project
       tags:
@@ -108,7 +108,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 13
+          example: 91
         required: true
       responses:
         '204':
@@ -145,7 +145,7 @@ paths:
               properties:
                 username:
                   type: string
-                  example: lissaxx
+                  example: tricia_considinexx
                 password:
                   type: string
                   example: qwerty12
@@ -183,7 +183,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 95
+          example: 50
         required: true
       responses:
         '200':
@@ -206,7 +206,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 50
+          example: 25
         required: true
       responses:
         '201':
@@ -227,7 +227,7 @@ paths:
               properties:
                 name:
                   type: string
-                  example: eos
+                  example: commodi
   "/api/v1/tasks/{id}/is_done":
     put:
       summary: Update task status
@@ -245,7 +245,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 14
+          example: 64
         required: true
       responses:
         '200':
@@ -269,7 +269,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 44
+          example: 79
         required: true
       responses:
         '200':
@@ -288,7 +288,44 @@ paths:
               properties:
                 name:
                   type: string
-                  example: excepturi
+                  example: impedit
+  "/api/v1/tasks/{id}/set_deadline":
+    put:
+      summary: Set task deadline
+      tags:
+      - Task
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        description: Access token
+        schema:
+          type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+          example: 27
+        required: true
+      responses:
+        '200':
+          description: Task deadline updated
+        '404':
+          description: Invalid task id
+        '422':
+          description: Blank deadline parameter
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - task
+              properties:
+                deadline:
+                  type: string
+                  example: '2022-07-19T18:59:27+03:00'
   "/api/v1/user":
     post:
       summary: Create user
@@ -319,7 +356,7 @@ paths:
                   properties:
                     username:
                       type: string
-                      example: haexx
+                      example: arleenxx
                     password:
                       type: string
                       example: qwerty12

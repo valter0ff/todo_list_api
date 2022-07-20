@@ -18,7 +18,7 @@ RSpec.describe Api::V1::Task::Contract::SetDeadline do
     context 'when deadline is blank' do
       let(:task) { create(:task) }
       let(:params) { { deadline: '' } }
-      let(:deadline_blank_error) { I18n.t('errors.filled?') }
+      let(:deadline_blank_error) { I18n.t('errors.rules.task.rules.deadline.filled?') }
 
       it 'returns errors' do
         expect(contract.errors.messages[:deadline].first).to eq(deadline_blank_error)
