@@ -151,7 +151,8 @@ RSpec.describe 'api/v1/task', type: :request do
         type: :object,
         required: %w[task],
         properties: {
-          name: { type: :string, example: FFaker::Lorem.word }
+          name: { type: :string, example: FFaker::Lorem.word },
+          position: { type: :integer, example: rand(1..100) }
         }
       }
 
