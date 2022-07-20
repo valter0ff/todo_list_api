@@ -6,8 +6,16 @@ FactoryBot.define do
     deadline { DateTime.now.next_week }
     project
 
+    transient do
+      comments_count { 2 }
+    end
+    
     trait :with_comments do
-      comments { [association(:comment, task: instance), association(:comment, task: instance)] }
+      comments { build_list(:comment, comments_count) }
+    end
+    
+    factory :task_with_comments do
+      comments { build_list(:comment, comments_count) }
     end
   end
 end
