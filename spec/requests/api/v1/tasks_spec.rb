@@ -160,7 +160,7 @@ RSpec.describe 'api/v1/task', type: :request do
         let(:'Authorization') { create_token(user: user) }
         let(:project) { create(:project, :with_tasks, user: user) }
         let(:id) { project.tasks.first.id }
-        let(:params) { { task: { name: FFaker::Name.unique.name } } }
+        let(:params) { { task: { name: FFaker::Name.unique.name, position: rand(1..100) } } }
 
         run_test! do
           expect(response).to be_ok
@@ -177,6 +177,19 @@ RSpec.describe 'api/v1/task', type: :request do
 
         run_test! do
           expect(response).to be_not_found
+        end
+      end
+
+      response '422', 'Blank position parameter' do
+        let(:user) { create(:user) }
+        let(:'Authorization') { create_token(user: user) }
+        let(:project) { create(:project, :with_tasks, user: user) }
+        let(:id) { project.tasks.first.id }
+        let(:params) { { task: { name: FFaker::Name.unique.name, position: '' } } }
+
+        run_test! do
+          expect(response).to be_unprocessable
+          expect(response).to match_json_schema('api/v1/tasks/position_error')
         end
       end
 
