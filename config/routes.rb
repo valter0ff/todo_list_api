@@ -12,6 +12,7 @@ Rails.application.routes.draw do
         resources :tasks, shallow: true, except: %i[edit show] do
           put 'is_done', on: :member
           put 'set_deadline', on: :member
+          resources :comments, only: %i[index create destroy]
         end
       end
     end
