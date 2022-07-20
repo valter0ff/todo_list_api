@@ -20,4 +20,8 @@ class Api::V1::TasksController < AuthorizedController
   def set_deadline
     endpoint operation: Api::V1::Task::Operation::SetDeadline
   end
+
+  def destroy
+    endpoint operation: Api::V1::Task::Operation::Destroy
+  end
 end

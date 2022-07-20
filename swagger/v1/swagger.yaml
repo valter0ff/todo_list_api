@@ -52,7 +52,7 @@ paths:
               properties:
                 title:
                   type: string
-                  example: cumque
+                  example: suscipit
   "/api/v1/projects/{id}":
     put:
       summary: Update project
@@ -70,7 +70,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 29
+          example: 32
         required: true
       responses:
         '200':
@@ -91,7 +91,7 @@ paths:
               properties:
                 title:
                   type: string
-                  example: quibusdam
+                  example: ullam
     delete:
       summary: Destroy project
       tags:
@@ -108,7 +108,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 78
+          example: 51
         required: true
       responses:
         '204':
@@ -145,7 +145,7 @@ paths:
               properties:
                 username:
                   type: string
-                  example: myesha.durganxx
+                  example: kay.nitzschexx
                 password:
                   type: string
                   example: qwerty12
@@ -206,7 +206,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 48
+          example: 72
         required: true
       responses:
         '201':
@@ -227,7 +227,7 @@ paths:
               properties:
                 name:
                   type: string
-                  example: odio
+                  example: dolores
   "/api/v1/tasks/{id}/is_done":
     put:
       summary: Update task status
@@ -245,7 +245,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 94
+          example: 44
         required: true
       responses:
         '200':
@@ -269,7 +269,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 19
+          example: 23
         required: true
       responses:
         '200':
@@ -288,10 +288,35 @@ paths:
               properties:
                 name:
                   type: string
-                  example: consequuntur
+                  example: eos
                 position:
                   type: integer
-                  example: 38
+                  example: 42
+    delete:
+      summary: Delete task
+      tags:
+      - Task
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        description: Access token
+        schema:
+          type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+          example: 97
+        required: true
+      responses:
+        '204':
+          description: Task destroyed
+        '404':
+          description: Invalid task id
+        '401':
+          description: Invalid token
   "/api/v1/tasks/{id}/set_deadline":
     put:
       summary: Set task deadline
@@ -309,7 +334,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 21
+          example: 78
         required: true
       responses:
         '200':
@@ -328,7 +353,7 @@ paths:
               properties:
                 deadline:
                   type: string
-                  example: '2022-07-20T15:41:43+03:00'
+                  example: '2022-07-20T15:50:55+03:00'
   "/api/v1/user":
     post:
       summary: Create user
@@ -359,7 +384,7 @@ paths:
                   properties:
                     username:
                       type: string
-                      example: charissa.jaskolskixx
+                      example: guillermina_sporerxx
                     password:
                       type: string
                       example: qwerty12
