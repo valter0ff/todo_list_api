@@ -6,7 +6,7 @@ FactoryBot.define do
     user
 
     trait :with_tasks do
-      tasks { [association(:task), association(:task)] }
+      tasks { [association(:task, project: instance), association(:task, project: instance)] }
     end
   end
 end

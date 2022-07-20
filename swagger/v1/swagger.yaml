@@ -4,6 +4,68 @@ info:
   title: API V1
   version: v1
 paths:
+  "/api/v1/tasks/{task_id}/comments":
+    get:
+      summary: Task comments index
+      tags:
+      - Comment
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        description: Access token
+        schema:
+          type: string
+      - name: task_id
+        in: path
+        schema:
+          type: integer
+          example: 19
+        required: true
+      responses:
+        '200':
+          description: Task comments returned
+        '404':
+          description: Invalid task id
+    post:
+      summary: Create comment
+      tags:
+      - Comment
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        description: Access token
+        schema:
+          type: string
+      - name: task_id
+        in: path
+        schema:
+          type: integer
+          example: 66
+        required: true
+      responses:
+        '201':
+          description: Comment is created
+        '422':
+          description: Invalid comment body
+        '404':
+          description: Invalid task id
+        '401':
+          description: Invalid token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - comment
+              properties:
+                body:
+                  type: string
+                  example: Sherri Murphy
   "/api/v1/current_user":
     get:
       summary: Show current user
@@ -52,7 +114,7 @@ paths:
               properties:
                 title:
                   type: string
-                  example: suscipit
+                  example: rerum
   "/api/v1/projects/{id}":
     put:
       summary: Update project
@@ -70,7 +132,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 32
+          example: 54
         required: true
       responses:
         '200':
@@ -91,7 +153,7 @@ paths:
               properties:
                 title:
                   type: string
-                  example: ullam
+                  example: vitae
     delete:
       summary: Destroy project
       tags:
@@ -108,7 +170,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 51
+          example: 60
         required: true
       responses:
         '204':
@@ -145,7 +207,7 @@ paths:
               properties:
                 username:
                   type: string
-                  example: kay.nitzschexx
+                  example: tammixx
                 password:
                   type: string
                   example: qwerty12
@@ -183,7 +245,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 30
+          example: 17
         required: true
       responses:
         '200':
@@ -206,7 +268,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 72
+          example: 99
         required: true
       responses:
         '201':
@@ -227,7 +289,7 @@ paths:
               properties:
                 name:
                   type: string
-                  example: dolores
+                  example: ea
   "/api/v1/tasks/{id}/is_done":
     put:
       summary: Update task status
@@ -245,7 +307,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 44
+          example: 3
         required: true
       responses:
         '200':
@@ -269,7 +331,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 23
+          example: 64
         required: true
       responses:
         '200':
@@ -288,10 +350,10 @@ paths:
               properties:
                 name:
                   type: string
-                  example: eos
+                  example: distinctio
                 position:
                   type: integer
-                  example: 42
+                  example: 49
     delete:
       summary: Delete task
       tags:
@@ -308,7 +370,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 97
+          example: 89
         required: true
       responses:
         '204':
@@ -334,7 +396,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 78
+          example: 87
         required: true
       responses:
         '200':
@@ -353,7 +415,7 @@ paths:
               properties:
                 deadline:
                   type: string
-                  example: '2022-07-20T15:50:55+03:00'
+                  example: '2022-07-20T19:53:36+03:00'
   "/api/v1/user":
     post:
       summary: Create user
@@ -384,7 +446,7 @@ paths:
                   properties:
                     username:
                       type: string
-                      example: guillermina_sporerxx
+                      example: venus.boscoxx
                     password:
                       type: string
                       example: qwerty12

@@ -5,4 +5,4 @@ module Api::V1::Comment::Serializer
     set_type :comment
     attributes :body, :created_at, :updated_at
   end
-end 
+end

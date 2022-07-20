@@ -10,4 +10,4 @@ module Api::V1::Comment::Contract
       required(:body).filled(:str?)
     end
   end
-end 
+end

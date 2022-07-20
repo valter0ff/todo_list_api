@@ -20,4 +20,4 @@ module Api::V1::Comment::Operation
       ctx[:serializer] = Api::V1::Comment::Serializer::Show.new(model_items, is_collection: true)
     end
   end
-end 
+end
