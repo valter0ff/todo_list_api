@@ -17,7 +17,7 @@ RSpec.describe Api::V1::Task::Operation::IsDone do
       end
 
       it 'updates task`s status' do
-        expect(result[:model]).to be_is_done
+        expect(result[:model]).to be_done
       end
     end
 

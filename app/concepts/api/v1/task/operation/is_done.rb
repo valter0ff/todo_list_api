@@ -13,7 +13,7 @@ module Api::V1::Task::Operation
     end
 
     def change_model_status(_ctx, model:, **)
-      model.is_done!
+      model.done!
     end
 
     def set_serializer(ctx, model:, **)

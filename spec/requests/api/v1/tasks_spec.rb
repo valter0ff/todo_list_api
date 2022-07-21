@@ -109,10 +109,9 @@ RSpec.describe 'api/v1/task', type: :request do
       parameter name: :id, in: :path, schema: { type: :integer, example: rand(1..100) }
 
       let!(:project) { create(:project, :with_tasks, user: user) }
+      let(:id) { project.tasks.first.id }
 
       response '200', 'Task status changed' do
-        let(:id) { project.tasks.first.id }
-
         run_test! do
           expect(response).to be_ok
           expect(response).to match_json_schema('api/v1/tasks/is_done')
