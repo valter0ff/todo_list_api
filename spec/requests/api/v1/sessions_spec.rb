@@ -27,6 +27,7 @@ RSpec.describe 'api/v1/sessions', type: :request do
 
       response '201', 'Session is created' do
         let(:user) { create(:user) }
+        let!(:projects) { create_list(:project, 2, user: user) }
         let(:password) { user.password }
         let(:credentials) { { username: user.username, password: password } }
 

@@ -14,7 +14,7 @@ module Api::V1::Session::Operation
     pass Macro::Semantic(success: :created)
 
     def set_model(ctx, params:, **)
-      ctx[:model] = User.find_by(username: params[:username])
+      ctx[:model] = User.includes(:projects).find_by(username: params[:username])
     end
 
     def authenticate(_ctx, model:, params:, **)
@@ -27,7 +27,8 @@ module Api::V1::Session::Operation
     end
 
     def set_serializer(ctx, model:, session_tokens:, **)
-      ctx[:serializer] = Api::V1::User::Serializer::Create.new(model, meta: session_tokens)
+      options = { include: [:projects], meta: session_tokens }
+      ctx[:serializer] = Api::V1::User::Serializer::Create.new(model, options)
     end
   end
 end

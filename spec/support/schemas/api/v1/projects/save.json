@@ -29,44 +29,12 @@
             "created_at",
             "updated_at"
           ]
-        },
-        "relationships": {
-          "type": "object",
-          "properties": {
-            "user": {
-              "type": "object",
-              "properties": {
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "type": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "type"
-                  ]
-                }
-              },
-              "required": [
-                "data"
-              ]
-            }
-          },
-          "required": [
-            "user"
-          ]
         }
       },
       "required": [
         "id",
         "type",
-        "attributes",
-        "relationships"
+        "attributes"
       ]
     }
   },
