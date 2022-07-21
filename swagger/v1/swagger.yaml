@@ -102,6 +102,68 @@ paths:
           description: Session is destroyed
         '401':
           description: Invalid token
+  "/api/v1/projects/{project_id}/tasks":
+    get:
+      summary: Project tasks index
+      tags:
+      - Task
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        description: Access token
+        schema:
+          type: string
+      - name: project_id
+        in: path
+        schema:
+          type: integer
+          example: 14
+        required: true
+      responses:
+        '200':
+          description: Project tasks returned
+        '404':
+          description: Invalid project id
+    post:
+      summary: Create task
+      tags:
+      - Task
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        description: Access token
+        schema:
+          type: string
+      - name: project_id
+        in: path
+        schema:
+          type: integer
+          example: 14
+        required: true
+      responses:
+        '201':
+          description: Task is created
+        '422':
+          description: Invalid task name
+        '404':
+          description: Invalid project id
+        '401':
+          description: Invalid token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - task
+              properties:
+                name:
+                  type: string
+                  example: harum
   "/api/v1/user":
     post:
       summary: Create user

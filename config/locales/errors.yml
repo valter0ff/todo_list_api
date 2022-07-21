@@ -23,3 +23,7 @@ en:
           title:
             filled?: The field is required.
             unique_title?: The project with such name does already exist.
+      task:
+        rules:
+          name:
+            filled?: The field is required.
