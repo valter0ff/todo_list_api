@@ -119,7 +119,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 8
+          example: 14
         required: true
       responses:
         '200':
@@ -142,7 +142,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 43
+          example: 14
         required: true
       responses:
         '201':

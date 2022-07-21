@@ -15,7 +15,7 @@ RSpec.describe Api::V1::Task::Operation::Index do
       end
 
       it 'assigns project tasks to result context' do
-        expect(result[:model_items]).to match(project.tasks)
+        expect(result[:relation]).to match(project.tasks)
       end
     end
 
