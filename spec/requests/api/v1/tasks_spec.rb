@@ -11,6 +11,11 @@ RSpec.describe 'api/v1/task', type: :request do
     end
   end
 
+  let(:user) { create(:user) }
+  let(:'Authorization') { create_token(user: user) }
+  let(:project) { create(:project, :with_tasks, user: user) }
+  let(:project_id) { project.id }
+
   path '/api/v1/projects/{project_id}/tasks' do
     get 'Project tasks index' do
       tags 'Task'
@@ -20,11 +25,6 @@ RSpec.describe 'api/v1/task', type: :request do
       parameter name: :project_id, in: :path, schema: { type: :integer, example: rand(1..100) }
 
       response '200', 'Project tasks returned' do
-        let(:user) { create(:user) }
-        let(:'Authorization') { create_token(user: user) }
-        let(:project) { create(:project, :with_tasks, user: user) }
-        let(:project_id) { project.id }
-
         run_test! do
           expect(response).to be_ok
           expect(response).to match_json_schema('api/v1/tasks/index')
@@ -32,18 +32,26 @@ RSpec.describe 'api/v1/task', type: :request do
       end
 
       response '404', 'Invalid project id' do
-        let(:user) { create(:user) }
-        let(:'Authorization') { create_token(user: user) }
         let(:project_id) { rand(2..100) }
 
         run_test! do
           expect(response).to be_not_found
         end
       end
+
+      response '401', 'Invalid token' do
+        let(:'Authorization') { nil }
+
+        run_test! do
+          expect(response).to be_unauthorized
+        end
+      end
     end
   end
 
   path '/api/v1/projects/{project_id}/tasks' do
+    let(:params) { { task: { name: FFaker::Lorem.unique.word } } }
+
     post 'Create task' do
       tags 'Task'
       consumes 'application/json'
@@ -59,12 +67,6 @@ RSpec.describe 'api/v1/task', type: :request do
       }
 
       response '201', 'Task is created' do
-        let(:user) { create(:user) }
-        let(:'Authorization') { create_token(user: user) }
-        let(:project) { create(:project, user: user) }
-        let(:project_id) { project.id }
-        let(:params) { { task: { name: FFaker::Lorem.word } } }
-
         run_test! do
           expect(response).to be_created
           expect(response).to match_json_schema('api/v1/tasks/create')
@@ -72,10 +74,6 @@ RSpec.describe 'api/v1/task', type: :request do
       end
 
       response '422', 'Invalid task name' do
-        let(:user) { create(:user) }
-        let(:'Authorization') { create_token(user: user) }
-        let(:project) { create(:project, user: user) }
-        let(:project_id) { project.id }
         let(:params) { { task: { name: nil } } }
 
         run_test! do
@@ -85,10 +83,7 @@ RSpec.describe 'api/v1/task', type: :request do
       end
 
       response '404', 'Invalid project id' do
-        let(:user) { create(:user) }
-        let(:'Authorization') { create_token(user: user) }
         let(:project_id) { rand(1..100) }
-        let(:params) { { task: { name: FFaker::Lorem.word } } }
 
         run_test! do
           expect(response).to be_not_found
@@ -97,8 +92,6 @@ RSpec.describe 'api/v1/task', type: :request do
 
       response '401', 'Invalid token' do
         let(:'Authorization') { nil }
-        let(:project_id) { rand(1..100) }
-        let(:params) { { task: { name: FFaker::Lorem.word } } }
 
         run_test! do
           expect(response).to be_unauthorized
