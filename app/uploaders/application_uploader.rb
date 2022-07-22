@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationUploader < Shrine
+  plugin :derivatives, create_on_promote: true, versions_compatibility: true
   plugin :activerecord
   plugin :cached_attachment_data
   plugin :restore_cached_data
