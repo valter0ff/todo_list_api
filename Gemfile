@@ -25,6 +25,7 @@ gem 'oj', '~> 3.11'
 gem 'pagy', '~> 3.11'
 
 # Uploading
+gem 'image_processing', '~> 1.0'
 gem 'shrine', '~> 3.0'
 
 # Storing

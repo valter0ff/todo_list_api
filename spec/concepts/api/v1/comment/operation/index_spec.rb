@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe Api::V1::Comment::Operation::Index do
-  let(:result) { described_class.call(params: params, current_user: user) }
-  let(:user) { create(:user) }
-  let(:project) { create(:project, user: user) }
-  let(:task) { create(:task, :with_comments, project: project) }
+  let(:result) { described_class.call(params: params, current_user: task.project.user) }
+  let(:task) { create(:task, :with_comments) }
 
   describe '.call' do
     context 'when params are valid' do

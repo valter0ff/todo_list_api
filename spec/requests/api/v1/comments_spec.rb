@@ -11,6 +11,8 @@ RSpec.describe 'api/v1/comment', type: :request do
     end
   end
 
+  let(:'Authorization') { create_token(user: task.project.user) }
+
   path '/api/v1/tasks/{task_id}/comments' do
     get 'Task comments index' do
       tags 'Comment'
@@ -19,13 +21,10 @@ RSpec.describe 'api/v1/comment', type: :request do
       parameter name: :'Authorization', in: :header, type: :string, description: 'Access token'
       parameter name: :task_id, in: :path, schema: { type: :integer, example: rand(1..100) }
 
-      response '200', 'Task comments returned' do
-        let(:user) { create(:user) }
-        let(:'Authorization') { create_token(user: user) }
-        let(:project) { create(:project, user: user) }
-        let(:task) { create(:task, :with_comments, project: project) }
-        let(:task_id) { task.id }
+      let(:task) { create(:task, :with_comments) }
+      let(:task_id) { task.id }
 
+      response '200', 'Task comments returned' do
         run_test! do
           expect(response).to be_ok
           expect(response).to match_json_schema('api/v1/comments/index')
@@ -33,12 +32,18 @@ RSpec.describe 'api/v1/comment', type: :request do
       end
 
       response '404', 'Invalid task id' do
-        let(:user) { create(:user) }
-        let(:'Authorization') { create_token(user: user) }
         let(:task_id) { rand(2..100) }
 
         run_test! do
           expect(response).to be_not_found
+        end
+      end
+
+      response '401', 'Invalid token' do
+        let(:'Authorization') { nil }
+
+        run_test! do
+          expect(response).to be_unauthorized
         end
       end
     end
@@ -59,13 +64,12 @@ RSpec.describe 'api/v1/comment', type: :request do
         }
       }
 
-      response '201', 'Comment is created' do
-        let(:user) { create(:user) }
-        let(:'Authorization') { create_token(user: user) }
-        let(:project) { create(:project, :with_tasks, user: user) }
-        let(:task_id) { project.tasks.first.id }
-        let(:params) { { comment: { body: FFaker::Name.unique.name } } }
+      let(:task) { create(:task) }
+      let(:task_id) { task.id }
+      let(:params) { { comment: { body: body } } }
+      let(:body) { FFaker::Name.unique.name }
 
+      response '201', 'Comment is created' do
         run_test! do
           expect(response).to be_created
           expect(response).to match_json_schema('api/v1/comments/create')
@@ -73,11 +77,7 @@ RSpec.describe 'api/v1/comment', type: :request do
       end
 
       response '422', 'Invalid comment body' do
-        let(:user) { create(:user) }
-        let(:'Authorization') { create_token(user: user) }
-        let(:project) { create(:project, :with_tasks, user: user) }
-        let(:task_id) { project.tasks.first.id }
-        let(:params) { { comment: { body: nil } } }
+        let(:body) { nil }
 
         run_test! do
           expect(response).to be_unprocessable
@@ -86,10 +86,7 @@ RSpec.describe 'api/v1/comment', type: :request do
       end
 
       response '404', 'Invalid task id' do
-        let(:user) { create(:user) }
-        let(:'Authorization') { create_token(user: user) }
-        let(:task_id) { rand(1..100) }
-        let(:params) { { comment: { body: FFaker::Lorem.word } } }
+        let(:task_id) { rand(3..100) }
 
         run_test! do
           expect(response).to be_not_found
@@ -98,8 +95,6 @@ RSpec.describe 'api/v1/comment', type: :request do
 
       response '401', 'Invalid token' do
         let(:'Authorization') { nil }
-        let(:task_id) { rand(1..100) }
-        let(:params) { { comment: { body: FFaker::Lorem.word } } }
 
         run_test! do
           expect(response).to be_unauthorized

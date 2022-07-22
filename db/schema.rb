@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 2022_07_20_132012) do
 
   create_table "comments", force: :cascade do |t|
     t.text "body"
+    t.text "image_data"
     t.bigint "task_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

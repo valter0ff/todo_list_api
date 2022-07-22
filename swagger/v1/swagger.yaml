@@ -21,13 +21,31 @@ paths:
         in: path
         schema:
           type: integer
-          example: 19
+          example: 100
         required: true
       responses:
         '200':
           description: Task comments returned
+          content:
+            application/json:
+              example:
+                data:
+                - id: '102'
+                  type: comment
+                  attributes:
+                    body: Lorri Moen
+                    created_at: '2022-07-22T17:33:31.303+03:00'
+                    updated_at: '2022-07-22T17:33:31.303+03:00'
+                - id: '103'
+                  type: comment
+                  attributes:
+                    body: Gaye O'Hara
+                    created_at: '2022-07-22T17:33:31.307+03:00'
+                    updated_at: '2022-07-22T17:33:31.307+03:00'
         '404':
           description: Invalid task id
+        '401':
+          description: Invalid token
     post:
       summary: Create comment
       tags:
@@ -44,13 +62,29 @@ paths:
         in: path
         schema:
           type: integer
-          example: 66
+          example: 14
         required: true
       responses:
         '201':
           description: Comment is created
+          content:
+            application/json:
+              example:
+                data:
+                  id: '108'
+                  type: comment
+                  attributes:
+                    body: Alex Kilback
+                    created_at: '2022-07-22T17:33:31.804+03:00'
+                    updated_at: '2022-07-22T17:33:31.804+03:00'
         '422':
           description: Invalid comment body
+          content:
+            application/json:
+              example:
+                errors:
+                  body:
+                  - must be filled
         '404':
           description: Invalid task id
         '401':
@@ -65,7 +99,7 @@ paths:
               properties:
                 body:
                   type: string
-                  example: Sherri Murphy
+                  example: Yer Rippin
   "/api/v1/current_user":
     get:
       summary: Show current user
@@ -82,6 +116,19 @@ paths:
       responses:
         '200':
           description: Current user is returned
+          content:
+            application/json:
+              example:
+                data:
+                  id: '716'
+                  type: user
+                  attributes:
+                    username: Mahalia Murazik
+                    created_at: '2022-07-22T17:33:32.151+03:00'
+                    updated_at: '2022-07-22T17:33:32.151+03:00'
+                  relationships:
+                    projects:
+                      data: []
         '401':
           description: Invalid token
   "/api/v1/projects":
@@ -100,8 +147,24 @@ paths:
       responses:
         '201':
           description: Project is created
+          content:
+            application/json:
+              example:
+                data:
+                  id: '471'
+                  type: project
+                  attributes:
+                    title: eligendi
+                    created_at: '2022-07-22T17:33:32.310+03:00'
+                    updated_at: '2022-07-22T17:33:32.310+03:00'
         '422':
           description: Project title already exists
+          content:
+            application/json:
+              example:
+                errors:
+                  title:
+                  - The project with such name does already exist.
         '401':
           description: Invalid token
       requestBody:
@@ -114,7 +177,7 @@ paths:
               properties:
                 title:
                   type: string
-                  example: rerum
+                  example: aliquid
   "/api/v1/projects/{id}":
     put:
       summary: Update project
@@ -132,15 +195,31 @@ paths:
         in: path
         schema:
           type: integer
-          example: 54
+          example: 55
         required: true
       responses:
         '200':
           description: Project is updated
+          content:
+            application/json:
+              example:
+                data:
+                  id: '474'
+                  type: project
+                  attributes:
+                    title: Belinda Kris
+                    created_at: '2022-07-22T17:33:32.718+03:00'
+                    updated_at: '2022-07-22T17:33:32.749+03:00'
         '404':
           description: Invalid id
         '422':
           description: Project title already exists
+          content:
+            application/json:
+              example:
+                errors:
+                  title:
+                  - The project with such name does already exist.
         '401':
           description: Invalid token
       requestBody:
@@ -153,7 +232,7 @@ paths:
               properties:
                 title:
                   type: string
-                  example: vitae
+                  example: inventore
     delete:
       summary: Destroy project
       tags:
@@ -170,7 +249,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 60
+          example: 12
         required: true
       responses:
         '204':
@@ -190,12 +269,61 @@ paths:
       responses:
         '201':
           description: Session is created
+          content:
+            application/json:
+              example:
+                data:
+                  id: '726'
+                  type: user
+                  attributes:
+                    username: Vernetta Marvin
+                    created_at: '2022-07-22T17:33:33.098+03:00'
+                    updated_at: '2022-07-22T17:33:33.098+03:00'
+                  relationships:
+                    projects:
+                      data:
+                      - id: '478'
+                        type: project
+                      - id: '479'
+                        type: project
+                meta:
+                  csrf: FwUixTDGZyA0+9ITV9hz7/2JBXwjE54akl+eFHLxlP2QY1A7mrNRaz+A0CEPCcUYNm26Gd2Jr4O9H72v5KJpaw==
+                  access: eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTg1MzY0MTMsInVzZXJfaWQiOjcyNiwidWlkIjoiMDYzNWE0MWMtNDAxOC00MGYzLTg0NGItZjNmMWU2NzM1NTczIiwicnVpZCI6Ijg2ZWM3ZjEwLWY5N2ItNGNhMS05ZDhkLWMwYWU3ODE4ZWZjMSJ9.fx54DwLYj6tdTKdH07TJGFVd4WvcNVxByBGD9rL2mtk
+                  access_expires_at: '2022-07-23T03:33:33.000+03:00'
+                  refresh: eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTkxMDUyMTMsInVpZCI6Ijg2ZWM3ZjEwLWY5N2ItNGNhMS05ZDhkLWMwYWU3ODE4ZWZjMSJ9.on2w9dUvhEsi6rGdCookfVeMlNPuIATUq3ljOZl1-DE
+                  refresh_expires_at: '2022-07-29T17:33:33.000+03:00'
+                included:
+                - id: '478'
+                  type: project
+                  attributes:
+                    title: Doretha Kuhic
+                    created_at: '2022-07-22T17:33:33.103+03:00'
+                    updated_at: '2022-07-22T17:33:33.103+03:00'
+                - id: '479'
+                  type: project
+                  attributes:
+                    title: Viva Eichmann
+                    created_at: '2022-07-22T17:33:33.107+03:00'
+                    updated_at: '2022-07-22T17:33:33.107+03:00'
         '404':
           description: Not found
         '401':
           description: Invalid credentials
+          content:
+            application/json:
+              example:
+                errors:
+                  base: Incorrect login or(and) password
         '422':
           description: Blank username and password
+          content:
+            application/json:
+              example:
+                errors:
+                  username:
+                  - The field is required.
+                  password:
+                  - The field is required.
       requestBody:
         content:
           application/json:
@@ -207,7 +335,7 @@ paths:
               properties:
                 username:
                   type: string
-                  example: tammixx
+                  example: adrianna.mayerxx
                 password:
                   type: string
                   example: qwerty12
@@ -245,11 +373,35 @@ paths:
         in: path
         schema:
           type: integer
-          example: 17
+          example: 6
         required: true
       responses:
         '200':
           description: Project tasks returned
+          content:
+            application/json:
+              example:
+                data:
+                - id: '398'
+                  type: task
+                  attributes:
+                    name: amet
+                    created_at: '2022-07-22T17:33:33.453+03:00'
+                    updated_at: '2022-07-22T17:33:33.453+03:00'
+                    status: active
+                    position: 1
+                    deadline_date: 25/07/2022
+                    deadline_time: '00:00'
+                - id: '399'
+                  type: task
+                  attributes:
+                    name: qui
+                    created_at: '2022-07-22T17:33:33.458+03:00'
+                    updated_at: '2022-07-22T17:33:33.458+03:00'
+                    status: active
+                    position: 2
+                    deadline_date: 25/07/2022
+                    deadline_time: '00:00'
         '404':
           description: Invalid project id
     post:
@@ -268,13 +420,31 @@ paths:
         in: path
         schema:
           type: integer
-          example: 99
+          example: 43
         required: true
       responses:
         '201':
           description: Task is created
+          content:
+            application/json:
+              example:
+                data:
+                  id: '400'
+                  type: task
+                  attributes:
+                    name: Maribel Gaylord
+                    created_at: '2022-07-22T17:33:33.650+03:00'
+                    updated_at: '2022-07-22T17:33:33.650+03:00'
+                    status: active
+                    position: 1
         '422':
           description: Invalid task name
+          content:
+            application/json:
+              example:
+                errors:
+                  name:
+                  - The field is required.
         '404':
           description: Invalid project id
         '401':
@@ -289,7 +459,7 @@ paths:
               properties:
                 name:
                   type: string
-                  example: ea
+                  example: eligendi
   "/api/v1/tasks/{id}/is_done":
     put:
       summary: Update task status
@@ -307,11 +477,25 @@ paths:
         in: path
         schema:
           type: integer
-          example: 3
+          example: 69
         required: true
       responses:
         '200':
           description: Task status changed
+          content:
+            application/json:
+              example:
+                data:
+                  id: '401'
+                  type: task
+                  attributes:
+                    name: et
+                    created_at: '2022-07-22T17:33:33.909+03:00'
+                    updated_at: '2022-07-22T17:33:33.946+03:00'
+                    status: is_done
+                    position: 1
+                    deadline_date: 25/07/2022
+                    deadline_time: '00:00'
         '404':
           description: Invalid task id
   "/api/v1/tasks/{id}":
@@ -331,15 +515,37 @@ paths:
         in: path
         schema:
           type: integer
-          example: 64
+          example: 82
         required: true
       responses:
         '200':
           description: Task updated
+          content:
+            application/json:
+              example:
+                data:
+                  id: '405'
+                  type: task
+                  attributes:
+                    name: Kenton Hoppe
+                    created_at: '2022-07-22T17:33:34.099+03:00'
+                    updated_at: '2022-07-22T17:33:34.154+03:00'
+                    status: active
+                    position: 39
+                    deadline_date: 25/07/2022
+                    deadline_time: '00:00'
         '404':
           description: Invalid task id
         '422':
           description: Task already completed
+          content:
+            application/json:
+              example:
+                errors:
+                  position:
+                  - must be filled
+                  status:
+                  - The task is done. You can`t edit completed task.
       requestBody:
         content:
           application/json:
@@ -350,10 +556,10 @@ paths:
               properties:
                 name:
                   type: string
-                  example: distinctio
+                  example: reiciendis
                 position:
                   type: integer
-                  example: 49
+                  example: 85
     delete:
       summary: Delete task
       tags:
@@ -370,7 +576,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 89
+          example: 75
         required: true
       responses:
         '204':
@@ -396,15 +602,38 @@ paths:
         in: path
         schema:
           type: integer
-          example: 87
+          example: 69
         required: true
       responses:
         '200':
           description: Task deadline updated
+          content:
+            application/json:
+              example:
+                data:
+                  id: '412'
+                  type: task
+                  attributes:
+                    name: explicabo
+                    created_at: '2022-07-22T17:33:34.583+03:00'
+                    updated_at: '2022-07-22T17:33:34.583+03:00'
+                    status: active
+                    position: 1
+                    deadline_date: 25/07/2022
+                    deadline_time: '00:00'
         '404':
           description: Invalid task id
         '422':
           description: Blank deadline parameter
+          content:
+            application/json:
+              example:
+                errors:
+                  status:
+                  - The task is done. You can`t edit completed task.
+                  deadline:
+                  - The field is required.
+                  - Deadline cann`t be in past
       requestBody:
         content:
           application/json:
@@ -415,7 +644,7 @@ paths:
               properties:
                 deadline:
                   type: string
-                  example: '2022-07-20T19:53:36+03:00'
+                  example: '2022-07-22T17:33:30+03:00'
   "/api/v1/user":
     post:
       summary: Create user
@@ -427,8 +656,29 @@ paths:
       responses:
         '201':
           description: Created
+          content:
+            application/json:
+              example:
+                data:
+                  id: '746'
+                  type: user
+                  attributes:
+                    username: Georgeanna Kassulke
+                    created_at: '2022-07-22T17:33:35.517+03:00'
+                    updated_at: '2022-07-22T17:33:35.517+03:00'
+                  relationships:
+                    projects:
+                      data: []
         '422':
           description: User name already exists
+          content:
+            application/json:
+              example:
+                errors:
+                  username:
+                  - This login is already registered. Please, log in.
+                  password:
+                  - The field is required.
       requestBody:
         content:
           application/json:
@@ -446,7 +696,7 @@ paths:
                   properties:
                     username:
                       type: string
-                      example: venus.boscoxx
+                      example: maribelxx
                     password:
                       type: string
                       example: qwerty12
@@ -457,4 +707,4 @@ servers:
 - url: https://{defaultHost}
   variables:
     defaultHost:
-      default: www.example.com
+      default: localhost:3000

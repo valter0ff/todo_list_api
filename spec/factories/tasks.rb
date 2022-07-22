@@ -9,12 +9,8 @@ FactoryBot.define do
     transient do
       comments_count { 2 }
     end
-    
+
     trait :with_comments do
-      comments { build_list(:comment, comments_count) }
-    end
-    
-    factory :task_with_comments do
       comments { build_list(:comment, comments_count) }
     end
   end
