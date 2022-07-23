@@ -250,4 +250,39 @@ RSpec.describe 'api/v1/task', type: :request do
       end
     end
   end
+
+  path '/api/v1/tasks/{id}' do
+    delete 'Delete task' do
+      tags 'Task'
+      consumes 'application/json'
+      security [Bearer: {}]
+      parameter name: :'Authorization', in: :header, type: :string, description: 'Access token'
+      parameter name: :id, in: :path, schema: { type: :integer, example: rand(1..100) }
+
+      response '204', 'Task destroyed' do
+        let(:id) { project.tasks.first.id }
+
+        run_test! do
+          expect(response).to be_no_content
+        end
+      end
+
+      response '404', 'Invalid task id' do
+        let(:id) { rand(1..100) }
+
+        run_test! do
+          expect(response).to be_not_found
+        end
+      end
+
+      response '401', 'Invalid token' do
+        let(:id) { project.tasks.first.id }
+        let(:'Authorization') { nil }
+
+        run_test! do
+          expect(response).to be_unauthorized
+        end
+      end
+    end
+  end
 end
