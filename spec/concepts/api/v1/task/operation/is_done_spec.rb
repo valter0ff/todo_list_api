@@ -17,7 +17,7 @@ RSpec.describe Api::V1::Task::Operation::IsDone do
       end
 
       it 'updates task`s status' do
-        expect(result[:model]).to be_is_done
+        expect { result }.to change { task.reload.status }.from('in_progress').to('done')
       end
     end
 
@@ -27,6 +27,10 @@ RSpec.describe Api::V1::Task::Operation::IsDone do
       it 'operation result failed' do
         expect(result).to be_failure
         expect(result[:semantic_failure]).to eq(:not_found)
+      end
+
+      it 'updates task`s status' do
+        expect { result }.not_to change { task.reload.status }
       end
     end
   end

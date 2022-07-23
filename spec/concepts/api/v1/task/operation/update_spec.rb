@@ -48,10 +48,10 @@ RSpec.describe Api::V1::Task::Operation::Update do
     end
 
     context 'when task status `is_done`' do
-      let(:task) { create(:task, :is_done, project: project) }
+      let(:task) { create(:task, :done, project: project) }
       let(:params) { { id: task.id, task: { name: FFaker::Name.unique.name } } }
       let(:result_errors) { result['contract.default'].errors.messages }
-      let(:task_complete_error) { I18n.t('errors.rules.task.rules.status.is_done?') }
+      let(:task_complete_error) { I18n.t('errors.rules.task.rules.status.in_progress?') }
 
       it 'operation result failed' do
         expect(result).to be_failure
