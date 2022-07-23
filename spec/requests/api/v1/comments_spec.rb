@@ -102,4 +102,40 @@ RSpec.describe 'api/v1/comment', type: :request do
       end
     end
   end
+
+  path '/api/v1/comments/{id}' do
+    delete 'Delete comment' do
+      tags 'Comment'
+      consumes 'application/json'
+      security [Bearer: {}]
+      parameter name: :'Authorization', in: :header, type: :string, description: 'Access token'
+      parameter name: :id, in: :path, schema: { type: :integer, example: rand(1..100) }
+
+      let(:task) { create(:task) }
+      let(:comment) { create(:comment, task: task) }
+      let(:id) { comment.id }
+
+      response '204', 'Comment destroyed' do
+        run_test! do
+          expect(response).to be_no_content
+        end
+      end
+
+      response '404', 'Invalid comment id' do
+        let(:id) { rand(1..100) }
+
+        run_test! do
+          expect(response).to be_not_found
+        end
+      end
+
+      response '401', 'Invalid token' do
+        let(:'Authorization') { nil }
+
+        run_test! do
+          expect(response).to be_unauthorized
+        end
+      end
+    end
+  end
 end
