@@ -3,7 +3,7 @@
 module Api::V1::Comment::Operation
   class Destroy < ApplicationOperation
     step :set_model
-    fail Macro::Semantic(failure: :not_found)
+    fail Macro::Semantic(failure: :not_found), fail_fast: true
     step :check_task_existence
     fail Macro::Semantic(failure: :not_found)
     pass :destroy_comment
@@ -14,7 +14,7 @@ module Api::V1::Comment::Operation
     end
 
     def check_task_existence(_ctx, model:, current_user:, **)
-      current_user.tasks.exists?(id: model.task.id)
+      current_user.tasks.exists?(id: model.task_id)
     end
 
     def destroy_comment(_ctx, model:, **)
