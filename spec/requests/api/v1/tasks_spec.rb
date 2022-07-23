@@ -260,9 +260,6 @@ RSpec.describe 'api/v1/task', type: :request do
       parameter name: :id, in: :path, schema: { type: :integer, example: rand(1..100) }
 
       response '204', 'Task destroyed' do
-        let(:user) { create(:user) }
-        let(:'Authorization') { create_token(user: user) }
-        let(:project) { create(:project, :with_tasks, user: user) }
         let(:id) { project.tasks.first.id }
 
         run_test! do
@@ -271,9 +268,6 @@ RSpec.describe 'api/v1/task', type: :request do
       end
 
       response '404', 'Invalid task id' do
-        let(:user) { create(:user) }
-        let(:'Authorization') { create_token(user: user) }
-        let!(:project) { create(:project, :with_tasks, user: user) }
         let(:id) { rand(1..100) }
 
         run_test! do
@@ -282,7 +276,7 @@ RSpec.describe 'api/v1/task', type: :request do
       end
 
       response '401', 'Invalid token' do
-        let(:id) { rand(100) }
+        let(:id) { project.tasks.first.id }
         let(:'Authorization') { nil }
 
         run_test! do
