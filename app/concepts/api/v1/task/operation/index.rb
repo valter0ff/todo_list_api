@@ -13,11 +13,11 @@ module Api::V1::Task::Operation
     end
 
     def assign_tasks(ctx, project:, **)
-      ctx[:model_items] = project.tasks.order(:created_at)
+      ctx[:relation] = project.tasks.order(:created_at)
     end
 
-    def set_serializer(ctx, model_items:, **)
-      ctx[:serializer] = Api::V1::Task::Serializer::Show.new(model_items, is_collection: true)
+    def set_serializer(ctx, relation:, **)
+      ctx[:serializer] = Api::V1::Task::Serializer::Show.new(relation, is_collection: true)
     end
   end
 end
