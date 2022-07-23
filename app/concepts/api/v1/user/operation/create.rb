@@ -7,14 +7,10 @@ module Api::V1::User::Operation
     step Contract::Validate(key: :user)
     step Contract::Persist()
     pass :set_serializer
-    pass :set_semantic
+    pass Macro::Semantic(success: :created)
 
     def set_serializer(ctx, model:, **)
-      ctx[:serializer] = Api::V1::User::Serializer::Create.new(model)
-    end
-
-    def set_semantic(ctx, **)
-      ctx[:semantic_success] = :created
+      ctx[:serializer] = Api::V1::Lib::UserSerializer::Show.new(model)
     end
   end
 end
