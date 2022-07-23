@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 JWTSessions.algorithm = 'HS256'
+JWTSessions.access_exp_time = 36_000
 JWTSessions.encryption_key = ENV['JWT_KEY'] || Rails.application.credentials.secret_jwt_encryption_key
 
 if Rails.env.test?

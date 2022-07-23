@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "updated_at": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "deadline_date": {
+              "type": "string"
+            },
+            "deadline_time": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "created_at",
+            "updated_at",
+            "status",
+            "deadline_date",
+            "deadline_time"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "attributes"
+      ]
+    }
+  },
+  "required": [
+    "data"
+  ]
+}
+
+ 
