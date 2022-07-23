@@ -2,21 +2,22 @@
 
 RSpec.describe Api::V1::Task::Contract::Update do
   let(:contract) { described_class.new(task) }
+  let(:task) { create(:task) }
+  let(:params) { { name: name, position: position } }
+  let(:name) { FFaker::Name.unique.name }
+  let(:position) { rand(2..100) }
 
   describe 'attributes validations' do
     before { contract.validate(params) }
 
     context 'when params are valid' do
-      let(:task) { create(:task) }
-
       it 'contract does not have errors' do
         expect(contract.errors).to be_empty
       end
     end
 
     context 'when name is blank' do
-      let(:task) { create(:task) }
-      let(:params) { { name: '' } }
+      let(:name) { '' }
       let(:name_blank_error) { I18n.t('errors.rules.task.rules.name.filled?') }
 
       it 'returns errors' do
@@ -25,8 +26,7 @@ RSpec.describe Api::V1::Task::Contract::Update do
     end
 
     context 'when position is blank' do
-      let(:task) { create(:task) }
-      let(:params) { { name: FFaker::Name.name, position: '' } }
+      let(:position) { '' }
       let(:position_blank_error) { I18n.t('errors.filled?') }
 
       it 'returns errors' do
@@ -35,8 +35,7 @@ RSpec.describe Api::V1::Task::Contract::Update do
     end
 
     context 'when position is not integer' do
-      let(:task) { create(:task) }
-      let(:params) { { name: FFaker::Name.name, position: FFaker::Lorem.word } }
+      let(:position) { FFaker::Lorem.word }
       let(:position_type_error) { I18n.t('errors.int?') }
 
       it 'returns errors' do
@@ -46,7 +45,6 @@ RSpec.describe Api::V1::Task::Contract::Update do
 
     context 'when task status is `done`' do
       let(:task) { create(:task, :done) }
-      let(:params) { attributes_for(:task) }
       let(:task_complete_error) { I18n.t('errors.rules.task.rules.status.in_progress?') }
 
       it 'returns errors' do
