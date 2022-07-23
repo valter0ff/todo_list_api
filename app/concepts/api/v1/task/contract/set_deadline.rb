@@ -10,12 +10,12 @@ module Api::V1::Task::Contract
         option :form
         config.namespace = :task
 
-        def is_done?(_value)
-          form.model.active?
+        def in_progress?(_value)
+          form.model.in_progress?
         end
       end
 
-      required(:status).value(is_done?: :status)
+      required(:status).value(:in_progress?)
     end
 
     validation :default, if: :task_status do
