@@ -1,5 +1,3 @@
-
-
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
@@ -24,12 +22,20 @@
             },
             "updated_at": {
               "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "position": {
+              "type": "integer"
             }
           },
           "required": [
             "name",
             "created_at",
-            "updated_at"
+            "updated_at",
+            "status",
+            "position"
           ]
         }
       },
@@ -45,4 +51,3 @@
   ]
 }
 
- 

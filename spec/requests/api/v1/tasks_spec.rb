@@ -147,12 +147,15 @@ RSpec.describe 'api/v1/task', type: :request do
         type: :object,
         required: %w[task],
         properties: {
-          name: { type: :string, example: FFaker::Lorem.word }
+          name: { type: :string, example: FFaker::Lorem.word },
+          position: { type: :integer, example: rand(1..100) }
         }
       }
 
       let(:id) { project.tasks.first.id }
-      let(:params) { { task: { name: FFaker::Name.unique.name } } }
+      let(:params) { { task: { name: name, position: position } } }
+      let(:name) { FFaker::Name.unique.name }
+      let(:position) { rand(1..100) }
 
       response '200', 'Task updated' do
         run_test! do
@@ -169,13 +172,24 @@ RSpec.describe 'api/v1/task', type: :request do
         end
       end
 
-      response '422', 'Task already completed' do
-        let(:task) { create(:task, :done, project: project) }
-        let(:id) { task.id }
+      response '422', 'Invalid parameters' do
+        context 'when blank position parameter' do
+          let(:position) { '' }
 
-        run_test! do
-          expect(response).to be_unprocessable
-          expect(response).to match_json_schema('api/v1/tasks/task_complete_error')
+          run_test! do
+            expect(response).to be_unprocessable
+            expect(response).to match_json_schema('api/v1/tasks/position_error')
+          end
+        end
+
+        context 'when task already completed' do
+          let(:task) { create(:task, :done, project: project) }
+          let(:id) { task.id }
+
+          run_test! do
+            expect(response).to be_unprocessable
+            expect(response).to match_json_schema('api/v1/tasks/task_complete_error')
+          end
         end
       end
     end

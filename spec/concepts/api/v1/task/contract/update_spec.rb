@@ -8,7 +8,6 @@ RSpec.describe Api::V1::Task::Contract::Update do
 
     context 'when params are valid' do
       let(:task) { create(:task) }
-      let(:params) { attributes_for(:task) }
 
       it 'contract does not have errors' do
         expect(contract.errors).to be_empty
@@ -22,6 +21,26 @@ RSpec.describe Api::V1::Task::Contract::Update do
 
       it 'returns errors' do
         expect(contract.errors.messages[:name].first).to eq(name_blank_error)
+      end
+    end
+
+    context 'when position is blank' do
+      let(:task) { create(:task) }
+      let(:params) { { name: FFaker::Name.name, position: '' } }
+      let(:position_blank_error) { I18n.t('errors.filled?') }
+
+      it 'returns errors' do
+        expect(contract.errors.messages[:position].first).to eq(position_blank_error)
+      end
+    end
+
+    context 'when position is not integer' do
+      let(:task) { create(:task) }
+      let(:params) { { name: FFaker::Name.name, position: FFaker::Lorem.word } }
+      let(:position_type_error) { I18n.t('errors.int?') }
+
+      it 'returns errors' do
+        expect(contract.errors.messages[:position].first).to eq(position_type_error)
       end
     end
 

@@ -4,6 +4,7 @@ module Api::V1::Task::Contract
   class Update < ApplicationContract
     property :name
     property :status
+    property :position
 
     validation :task_status do
       configure do
@@ -22,6 +23,7 @@ module Api::V1::Task::Contract
       configure { config.namespace = :task }
 
       required(:name).filled(:str?)
+      required(:position).filled(:int?)
     end
   end
 end
