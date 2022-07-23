@@ -49,6 +49,9 @@ Layout/LineLength:
   Max: 120
   Exclude:
     - 'config/initializers/*'
+    
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
 
 Lint/MissingSuper:
   Enabled: false
@@ -81,6 +84,9 @@ Metrics/PerceivedComplexity:
 Naming/MethodName:
   Exclude:
     - 'lib/**/*'
+
+Naming/PredicateName:
+  AllowedMethods: is_done
 
 Style/ClassAndModuleChildren:
   Enabled: false
