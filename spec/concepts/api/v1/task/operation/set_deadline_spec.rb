@@ -10,7 +10,7 @@ RSpec.describe Api::V1::Task::Operation::SetDeadline do
   describe '.call' do
     context 'when params are valid' do
       let(:params) { { id: task.id, task: { deadline: new_deadline } } }
-      let(:new_deadline) { DateTime.now.end_of_day.utc.to_s }
+      let(:new_deadline) { DateTime.now.next_week.utc.to_s }
 
       it 'operation result successfull' do
         expect(result).to be_success
