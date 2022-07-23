@@ -52,7 +52,71 @@ paths:
               properties:
                 title:
                   type: string
-                  example: at
+                  example: maxime
+  "/api/v1/projects/{id}":
+    put:
+      summary: Update project
+      tags:
+      - Project
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        description: Access token
+        schema:
+          type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+          example: 67
+        required: true
+      responses:
+        '200':
+          description: Project is updated
+        '404':
+          description: Invalid id
+        '422':
+          description: Project title already exists
+        '401':
+          description: Invalid token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - project
+              properties:
+                title:
+                  type: string
+                  example: sit
+    delete:
+      summary: Destroy project
+      tags:
+      - Project
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        description: Access token
+        schema:
+          type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+          example: 13
+        required: true
+      responses:
+        '204':
+          description: Project is destroyed
+        '404':
+          description: Invalid id
+        '401':
+          description: Invalid token
   "/api/v1/session":
     post:
       summary: Create session
@@ -81,7 +145,7 @@ paths:
               properties:
                 username:
                   type: string
-                  example: carletta_hodkiewiczxx
+                  example: lissaxx
                 password:
                   type: string
                   example: qwerty12
@@ -163,7 +227,7 @@ paths:
               properties:
                 name:
                   type: string
-                  example: repellat
+                  example: eos
   "/api/v1/tasks/{id}/is_done":
     put:
       summary: Update task status
@@ -181,13 +245,50 @@ paths:
         in: path
         schema:
           type: integer
-          example: 86
+          example: 14
         required: true
       responses:
         '200':
           description: Task status changed
         '404':
           description: Invalid task id
+  "/api/v1/tasks/{id}":
+    put:
+      summary: Update task
+      tags:
+      - Task
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        description: Access token
+        schema:
+          type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+          example: 44
+        required: true
+      responses:
+        '200':
+          description: Task updated
+        '404':
+          description: Invalid task id
+        '422':
+          description: Task already completed
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - task
+              properties:
+                name:
+                  type: string
+                  example: excepturi
   "/api/v1/user":
     post:
       summary: Create user
@@ -218,7 +319,7 @@ paths:
                   properties:
                     username:
                       type: string
-                      example: abbie.schulistxx
+                      example: haexx
                     password:
                       type: string
                       example: qwerty12

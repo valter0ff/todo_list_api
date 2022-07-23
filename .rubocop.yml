@@ -86,7 +86,7 @@ Naming/MethodName:
     - 'lib/**/*'
 
 Naming/PredicateName:
-  AllowedMethods: is_done
+  AllowedMethods: is_done, is_done?
 
 Style/ClassAndModuleChildren:
   Enabled: false

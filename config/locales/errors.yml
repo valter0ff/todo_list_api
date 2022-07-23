@@ -27,3 +27,5 @@ en:
         rules:
           name:
             filled?: The field is required.
+          status:
+            in_progress?: The task is done. You can`t edit completed task. 
