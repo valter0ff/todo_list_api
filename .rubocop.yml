@@ -49,6 +49,9 @@ Layout/LineLength:
   Max: 120
   Exclude:
     - 'config/initializers/*'
+    
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
 
 Lint/MissingSuper:
   Enabled: false
