@@ -28,7 +28,7 @@ module Api::V1::Session::Operation
 
     def set_serializer(ctx, model:, session_tokens:, **)
       options = { include: [:projects], meta: session_tokens }
-      ctx[:serializer] = Api::V1::User::Serializer::Create.new(model, options)
+      ctx[:serializer] = Api::V1::Lib::UserSerializer::Show.new(model, options)
     end
   end
 end

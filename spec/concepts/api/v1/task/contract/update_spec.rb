@@ -8,7 +8,6 @@ RSpec.describe Api::V1::Task::Contract::Update do
 
     context 'when params are valid' do
       let(:task) { create(:task) }
-      let(:params) { attributes_for(:task, position: rand(1..100)) }
 
       it 'contract does not have errors' do
         expect(contract.errors).to be_empty
@@ -45,10 +44,10 @@ RSpec.describe Api::V1::Task::Contract::Update do
       end
     end
 
-    context 'when task status `is_done`' do
-      let(:task) { create(:task, :is_done) }
+    context 'when task status is `done`' do
+      let(:task) { create(:task, :done) }
       let(:params) { attributes_for(:task) }
-      let(:task_complete_error) { I18n.t('errors.rules.task.rules.status.is_done?') }
+      let(:task_complete_error) { I18n.t('errors.rules.task.rules.status.in_progress?') }
 
       it 'returns errors' do
         expect(contract.errors.messages[:status].first).to eq(task_complete_error)
