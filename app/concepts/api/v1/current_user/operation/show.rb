@@ -12,7 +12,7 @@ module Api::V1::CurrentUser::Operation
     end
 
     def serializer(ctx, model:, **)
-      ctx[:serializer] = Api::V1::User::Serializer::Create.new(model)
+      ctx[:serializer] = Api::V1::Lib::UserSerializer::Show.new(model)
     end
   end
 end

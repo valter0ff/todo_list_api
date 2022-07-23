@@ -6,36 +6,41 @@ RSpec.describe Api::V1::Task::Operation::Create do
   let(:project) { create(:project, user: user) }
 
   describe '.call' do
-    context 'when params are valid' do
-      let(:params) { { project_id: project.id, task: attributes_for(:task) } }
+    describe 'success' do
+      context 'when params are valid' do
+        let(:params) { { project_id: project.id, task: attributes_for(:task) } }
 
-      it 'operation result successfull' do
-        expect(result).to be_success
-        expect(result[:semantic_success]).to eq(:created)
-        expect(result[:model]).to be_persisted
-      end
+        it 'operation result successfull' do
+          expect(result).to be_success
+          expect(result[:semantic_success]).to eq(:created)
+          expect(result[:model]).to be_persisted
+        end
 
-      it 'creates new task in database' do
-        expect { result }.to change(Task, :count).by(1)
+        it 'creates new task in database' do
+          expect { result }.to change(Task, :count).by(1)
+        end
       end
     end
 
-    context 'when task name is invalid' do
-      let(:params) { { project_id: project.id, task: { name: nil } } }
+    describe 'failure' do
       let(:result_errors) { result['contract.default'].errors.messages }
-      let(:empty_name_error) { I18n.t('errors.rules.task.rules.name.filled?') }
 
-      it 'operation result failed' do
-        expect(result).to be_failure
-      end
+      context 'when task name is invalid' do
+        let(:params) { { project_id: project.id, task: { name: nil } } }
+        let(:empty_name_error) { I18n.t('errors.rules.project.rules.title.filled?') }
 
-      it 'assigns errors to result errors hash' do
-        expect(result_errors).not_to be_empty
-        expect(result_errors[:name].first).to eq(empty_name_error)
-      end
+        it 'operation result failed' do
+          expect(result).to be_failure
+        end
 
-      it 'doesn`t create new task in database' do
-        expect { result }.not_to change(Task, :count)
+        it 'assigns errors to result errors hash' do
+          expect(result_errors).not_to be_empty
+          expect(result_errors[:name].first).to eq(empty_name_error)
+        end
+
+        it 'doesn`t create new task in database' do
+          expect { result }.not_to change(Task, :count)
+        end
       end
 
       context 'when project id is invalid' do
