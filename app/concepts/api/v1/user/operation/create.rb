@@ -10,7 +10,7 @@ module Api::V1::User::Operation
     pass Macro::Semantic(success: :created)
 
     def set_serializer(ctx, model:, **)
-      ctx[:serializer] = Api::V1::User::Serializer::Create.new(model)
+      ctx[:serializer] = Api::V1::Lib::UserSerializer::Show.new(model)
     end
   end
 end
