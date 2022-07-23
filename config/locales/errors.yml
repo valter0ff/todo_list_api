@@ -28,4 +28,4 @@ en:
           name:
             filled?: The field is required.
           status:
-            is_done?: The task is done. You can`t edit completed task. 
+            in_progress?: The task is done. You can`t edit completed task. 
