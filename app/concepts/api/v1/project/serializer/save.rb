@@ -5,6 +5,6 @@ module Api::V1::Project::Serializer
     attributes :title, :created_at, :updated_at
 
     set_type :project
-    belongs_to :user, serializer: Api::V1::User::Serializer::Create
+    belongs_to :user, serializer: Api::V1::Lib::UserSerializer::Show
   end
 end
