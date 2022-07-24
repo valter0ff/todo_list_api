@@ -21,27 +21,29 @@ paths:
         in: path
         schema:
           type: integer
-          example: 94
+          example: 89
         required: true
       responses:
         '200':
           description: Task comments returned
           content:
             application/json:
-              example:
-                data:
-                - id: '75'
-                  type: comment
-                  attributes:
-                    body: Elaine Goodwin
-                    created_at: '2022-07-23T23:29:59.858+03:00'
-                    updated_at: '2022-07-23T23:29:59.858+03:00'
-                - id: '76'
-                  type: comment
-                  attributes:
-                    body: Stacie Anderson
-                    created_at: '2022-07-23T23:29:59.862+03:00'
-                    updated_at: '2022-07-23T23:29:59.862+03:00'
+              examples:
+                Task comments returned:
+                  value:
+                    data:
+                    - id: '120'
+                      type: comment
+                      attributes:
+                        body: Daniela Nicolas
+                        created_at: '2022-07-24T13:47:14.750+03:00'
+                        updated_at: '2022-07-24T13:47:14.750+03:00'
+                    - id: '121'
+                      type: comment
+                      attributes:
+                        body: Carmen Tromp
+                        created_at: '2022-07-24T13:47:14.765+03:00'
+                        updated_at: '2022-07-24T13:47:14.765+03:00'
         '404':
           description: Invalid task id
         '401':
@@ -62,29 +64,33 @@ paths:
         in: path
         schema:
           type: integer
-          example: 64
+          example: 91
         required: true
       responses:
         '201':
           description: Comment is created
           content:
             application/json:
-              example:
-                data:
-                  id: '81'
-                  type: comment
-                  attributes:
-                    body: Dreama Paucek
-                    created_at: '2022-07-23T23:30:00.240+03:00'
-                    updated_at: '2022-07-23T23:30:00.240+03:00'
+              examples:
+                Comment is created:
+                  value:
+                    data:
+                      id: '126'
+                      type: comment
+                      attributes:
+                        body: Brett Kris
+                        created_at: '2022-07-24T13:47:15.147+03:00'
+                        updated_at: '2022-07-24T13:47:15.147+03:00'
         '422':
           description: Invalid comment body
           content:
             application/json:
-              example:
-                errors:
-                  body:
-                  - must be filled
+              examples:
+                Invalid comment body:
+                  value:
+                    errors:
+                      body:
+                      - must be filled
         '404':
           description: Invalid task id
         '401':
@@ -99,7 +105,7 @@ paths:
               properties:
                 body:
                   type: string
-                  example: Bula Lynch
+                  example: Louella Lockman
   "/api/v1/comments/{id}":
     delete:
       summary: Delete comment
@@ -117,7 +123,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 25
+          example: 86
         required: true
       responses:
         '204':
@@ -144,17 +150,19 @@ paths:
           description: Current user is returned
           content:
             application/json:
-              example:
-                data:
-                  id: '459'
-                  type: user
-                  attributes:
-                    username: Merideth Crooks
-                    created_at: '2022-07-23T23:30:00.707+03:00'
-                    updated_at: '2022-07-23T23:30:00.707+03:00'
-                  relationships:
-                    projects:
-                      data: []
+              examples:
+                Current user is returned:
+                  value:
+                    data:
+                      id: '694'
+                      type: user
+                      attributes:
+                        username: Edward Pouros
+                        created_at: '2022-07-24T13:47:15.607+03:00'
+                        updated_at: '2022-07-24T13:47:15.607+03:00'
+                      relationships:
+                        projects:
+                          data: []
         '401':
           description: Invalid token
   "/api/v1/projects":
@@ -175,22 +183,31 @@ paths:
           description: Project is created
           content:
             application/json:
-              example:
-                data:
-                  id: '360'
-                  type: project
-                  attributes:
-                    title: maxime
-                    created_at: '2022-07-23T23:30:00.882+03:00'
-                    updated_at: '2022-07-23T23:30:00.882+03:00'
+              examples:
+                Project is created:
+                  value:
+                    data:
+                      id: '540'
+                      type: project
+                      attributes:
+                        title: tenetur
+                        created_at: '2022-07-24T13:47:15.762+03:00'
+                        updated_at: '2022-07-24T13:47:15.762+03:00'
         '422':
           description: Invalid parameters
           content:
             application/json:
-              example:
-                errors:
-                  title:
-                  - The project with such name does already exist.
+              examples:
+                when title is invalid:
+                  value:
+                    errors:
+                      title:
+                      - The field is required.
+                when project with provided title already exists:
+                  value:
+                    errors:
+                      title:
+                      - The project with such name does already exist.
         '401':
           description: Invalid token
       requestBody:
@@ -203,7 +220,7 @@ paths:
               properties:
                 title:
                   type: string
-                  example: provident
+                  example: inventore
   "/api/v1/projects/{id}":
     put:
       summary: Update project
@@ -221,31 +238,35 @@ paths:
         in: path
         schema:
           type: integer
-          example: 52
+          example: 68
         required: true
       responses:
         '200':
           description: Project is updated
           content:
             application/json:
-              example:
-                data:
-                  id: '362'
-                  type: project
-                  attributes:
-                    title: Alma Crist
-                    created_at: '2022-07-23T23:30:01.211+03:00'
-                    updated_at: '2022-07-23T23:30:01.246+03:00'
+              examples:
+                Project is updated:
+                  value:
+                    data:
+                      id: '542'
+                      type: project
+                      attributes:
+                        title: Heike Yost
+                        created_at: '2022-07-24T13:47:16.098+03:00'
+                        updated_at: '2022-07-24T13:47:16.143+03:00'
         '404':
           description: Invalid project id
         '422':
           description: Project title already exists
           content:
             application/json:
-              example:
-                errors:
-                  title:
-                  - The project with such name does already exist.
+              examples:
+                Project title already exists:
+                  value:
+                    errors:
+                      title:
+                      - The project with such name does already exist.
         '401':
           description: Invalid token
       requestBody:
@@ -258,7 +279,7 @@ paths:
               properties:
                 title:
                   type: string
-                  example: accusantium
+                  example: dignissimos
     delete:
       summary: Destroy project
       tags:
@@ -275,7 +296,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 53
+          example: 100
         required: true
       responses:
         '204':
@@ -297,59 +318,65 @@ paths:
           description: Session is created
           content:
             application/json:
-              example:
-                data:
-                  id: '470'
-                  type: user
-                  attributes:
-                    username: Carlee Collier
-                    created_at: '2022-07-23T23:30:01.614+03:00'
-                    updated_at: '2022-07-23T23:30:01.614+03:00'
-                  relationships:
-                    projects:
-                      data:
-                      - id: '368'
-                        type: project
-                      - id: '369'
-                        type: project
-                meta:
-                  csrf: Z07XJoI0lWw1JUJiNM6vwUAsFSeFeuiN0wfcf8pS/jfkyA10dzzAdx8sncBEUcNG1la/e3QeAX8HkRhd1XU4yA==
-                  access: eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTg2NDQyMDEsInVzZXJfaWQiOjQ3MCwidWlkIjoiOGM5ODBhMDUtYzA1ZS00ODBhLThlMzktYzQ5YTUxY2U4MDM0IiwicnVpZCI6IjhiYWI2MmNhLTM0ZjQtNDdlNy04MjNkLThkZTIzOTY2MDg0MyJ9.BBSw54auRevObn9ZQ_3i-leurMXFnzAvNsX5ntzC6S8
-                  access_expires_at: '2022-07-24T09:30:01.000+03:00'
-                  refresh: eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTkyMTMwMDEsInVpZCI6IjhiYWI2MmNhLTM0ZjQtNDdlNy04MjNkLThkZTIzOTY2MDg0MyJ9.xTWoXLY1u0ziF8Cf62MlqIU7aNJ-QzcK88A0ASBBg40
-                  refresh_expires_at: '2022-07-30T23:30:01.000+03:00'
-                included:
-                - id: '368'
-                  type: project
-                  attributes:
-                    title: Yee Boehm
-                    created_at: '2022-07-23T23:30:01.620+03:00'
-                    updated_at: '2022-07-23T23:30:01.620+03:00'
-                - id: '369'
-                  type: project
-                  attributes:
-                    title: Leta Johnston
-                    created_at: '2022-07-23T23:30:01.625+03:00'
-                    updated_at: '2022-07-23T23:30:01.625+03:00'
+              examples:
+                Session is created:
+                  value:
+                    data:
+                      id: '705'
+                      type: user
+                      attributes:
+                        username: Kurtis Krajcik
+                        created_at: '2022-07-24T13:47:16.485+03:00'
+                        updated_at: '2022-07-24T13:47:16.485+03:00'
+                      relationships:
+                        projects:
+                          data:
+                          - id: '548'
+                            type: project
+                          - id: '549'
+                            type: project
+                    meta:
+                      csrf: IgOz4BmY4KUi+sieXQ7NAoa8kxDRc4XY2g+e2FMC0KsYEcHGJlHxgygdbSRVPMco62IFApoejhbv/qcnARFYIg==
+                      access: eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTg2OTU2MzYsInVzZXJfaWQiOjcwNSwidWlkIjoiZTg4NGQ5NmMtMGY3ZS00ZmU1LWJkNDAtOTc1ZmNjZmUwNWNiIiwicnVpZCI6IjEwMzJlMzhhLTFjMzctNDhkOS04MWE4LTc5Y2ZhODVjMDBhMiJ9.8wsvbm9HzIYQoPDR6a3fJCg9fgAbYPxduNomDKL-ioM
+                      access_expires_at: '2022-07-24T23:47:16.000+03:00'
+                      refresh: eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTkyNjQ0MzYsInVpZCI6IjEwMzJlMzhhLTFjMzctNDhkOS04MWE4LTc5Y2ZhODVjMDBhMiJ9.Utiz3N0_F9G1SRe9FTeiqvL3vsIyyaXpHxScwSz1A3k
+                      refresh_expires_at: '2022-07-31T13:47:16.000+03:00'
+                    included:
+                    - id: '548'
+                      type: project
+                      attributes:
+                        title: Carolin McClure
+                        created_at: '2022-07-24T13:47:16.490+03:00'
+                        updated_at: '2022-07-24T13:47:16.490+03:00'
+                    - id: '549'
+                      type: project
+                      attributes:
+                        title: Tiffany Ortiz
+                        created_at: '2022-07-24T13:47:16.495+03:00'
+                        updated_at: '2022-07-24T13:47:16.495+03:00'
         '404':
           description: Not found
         '401':
           description: Invalid credentials
           content:
             application/json:
-              example:
-                errors:
-                  base: Incorrect login or(and) password
+              examples:
+                Invalid credentials:
+                  value:
+                    errors:
+                      base: Incorrect login or(and) password
         '422':
           description: Blank username and password
           content:
             application/json:
-              example:
-                errors:
-                  username:
-                  - The field is required.
-                  password:
-                  - The field is required.
+              examples:
+                Blank username and password:
+                  value:
+                    errors:
+                      username:
+                      - The field is required.
+                      password:
+                      - The field is required.
       requestBody:
         content:
           application/json:
@@ -361,7 +388,7 @@ paths:
               properties:
                 username:
                   type: string
-                  example: denishaxx
+                  example: frankie_stantonxx
                 password:
                   type: string
                   example: qwerty12
@@ -399,35 +426,37 @@ paths:
         in: path
         schema:
           type: integer
-          example: 68
+          example: 82
         required: true
       responses:
         '200':
           description: Project tasks returned
           content:
             application/json:
-              example:
-                data:
-                - id: '318'
-                  type: task
-                  attributes:
-                    name: error
-                    created_at: '2022-07-23T23:30:01.954+03:00'
-                    updated_at: '2022-07-23T23:30:01.954+03:00'
-                    status: in_progress
-                    position: 1
-                    deadline_date: 25/07/2022
-                    deadline_time: '00:00'
-                - id: '319'
-                  type: task
-                  attributes:
-                    name: tenetur
-                    created_at: '2022-07-23T23:30:01.960+03:00'
-                    updated_at: '2022-07-23T23:30:01.960+03:00'
-                    status: in_progress
-                    position: 2
-                    deadline_date: 25/07/2022
-                    deadline_time: '00:00'
+              examples:
+                Project tasks returned:
+                  value:
+                    data:
+                    - id: '543'
+                      type: task
+                      attributes:
+                        name: deleniti
+                        created_at: '2022-07-24T13:47:17.125+03:00'
+                        updated_at: '2022-07-24T13:47:17.125+03:00'
+                        status: in_progress
+                        position: 1
+                        deadline_date: 25/07/2022
+                        deadline_time: '00:00'
+                    - id: '544'
+                      type: task
+                      attributes:
+                        name: voluptates
+                        created_at: '2022-07-24T13:47:17.130+03:00'
+                        updated_at: '2022-07-24T13:47:17.130+03:00'
+                        status: in_progress
+                        position: 2
+                        deadline_date: 25/07/2022
+                        deadline_time: '00:00'
         '404':
           description: Invalid project id
         '401':
@@ -448,31 +477,35 @@ paths:
         in: path
         schema:
           type: integer
-          example: 58
+          example: 57
         required: true
       responses:
         '201':
           description: Task is created
           content:
             application/json:
-              example:
-                data:
-                  id: '324'
-                  type: task
-                  attributes:
-                    name: nemo
-                    created_at: '2022-07-23T23:30:02.234+03:00'
-                    updated_at: '2022-07-23T23:30:02.234+03:00'
-                    status: in_progress
-                    position: 3
+              examples:
+                Task is created:
+                  value:
+                    data:
+                      id: '549'
+                      type: task
+                      attributes:
+                        name: ullam
+                        created_at: '2022-07-24T13:47:17.359+03:00'
+                        updated_at: '2022-07-24T13:47:17.359+03:00'
+                        status: in_progress
+                        position: 3
         '422':
           description: Invalid task name
           content:
             application/json:
-              example:
-                errors:
-                  name:
-                  - The field is required.
+              examples:
+                Invalid task name:
+                  value:
+                    errors:
+                      name:
+                      - The field is required.
         '404':
           description: Invalid project id
         '401':
@@ -487,7 +520,7 @@ paths:
               properties:
                 name:
                   type: string
-                  example: nesciunt
+                  example: ullam
   "/api/v1/tasks/{id}/is_done":
     put:
       summary: Update task status
@@ -505,25 +538,27 @@ paths:
         in: path
         schema:
           type: integer
-          example: 13
+          example: 89
         required: true
       responses:
         '200':
           description: Task status changed
           content:
             application/json:
-              example:
-                data:
-                  id: '329'
-                  type: task
-                  attributes:
-                    name: amet
-                    created_at: '2022-07-23T23:30:02.576+03:00'
-                    updated_at: '2022-07-23T23:30:02.614+03:00'
-                    status: done
-                    position: 1
-                    deadline_date: 25/07/2022
-                    deadline_time: '00:00'
+              examples:
+                Task status changed:
+                  value:
+                    data:
+                      id: '554'
+                      type: task
+                      attributes:
+                        name: laborum
+                        created_at: '2022-07-24T13:47:17.690+03:00'
+                        updated_at: '2022-07-24T13:47:17.724+03:00'
+                        status: done
+                        position: 1
+                        deadline_date: 25/07/2022
+                        deadline_time: '00:00'
         '404':
           description: Invalid task id
         '401':
@@ -545,37 +580,44 @@ paths:
         in: path
         schema:
           type: integer
-          example: 50
+          example: 5
         required: true
       responses:
         '200':
           description: Task updated
           content:
             application/json:
-              example:
-                data:
-                  id: '335'
-                  type: task
-                  attributes:
-                    name: Dean Borer
-                    created_at: '2022-07-23T23:30:02.831+03:00'
-                    updated_at: '2022-07-23T23:30:02.895+03:00'
-                    status: in_progress
-                    position: 10
-                    deadline_date: 25/07/2022
-                    deadline_time: '00:00'
+              examples:
+                Task updated:
+                  value:
+                    data:
+                      id: '560'
+                      type: task
+                      attributes:
+                        name: Neal Donnelly
+                        created_at: '2022-07-24T13:47:17.929+03:00'
+                        updated_at: '2022-07-24T13:47:17.989+03:00'
+                        status: in_progress
+                        position: 69
+                        deadline_date: 25/07/2022
+                        deadline_time: '00:00'
         '404':
           description: Invalid task id
         '422':
           description: Invalid parameters
           content:
             application/json:
-              example:
-                errors:
-                  position:
-                  - must be filled
-                  status:
-                  - The task is done. You can`t edit completed task.
+              examples:
+                when blank position parameter:
+                  value:
+                    errors:
+                      position:
+                      - must be filled
+                when task already completed:
+                  value:
+                    errors:
+                      status:
+                      - The task is done. You can`t edit completed task.
       requestBody:
         content:
           application/json:
@@ -586,10 +628,10 @@ paths:
               properties:
                 name:
                   type: string
-                  example: pariatur
+                  example: voluptatem
                 position:
                   type: integer
-                  example: 69
+                  example: 94
     delete:
       summary: Delete task
       tags:
@@ -606,7 +648,7 @@ paths:
         in: path
         schema:
           type: integer
-          example: 81
+          example: 9
         required: true
       responses:
         '204':
@@ -632,38 +674,45 @@ paths:
         in: path
         schema:
           type: integer
-          example: 11
+          example: 8
         required: true
       responses:
         '200':
           description: Task deadline updated
           content:
             application/json:
-              example:
-                data:
-                  id: '342'
-                  type: task
-                  attributes:
-                    name: sequi
-                    created_at: '2022-07-23T23:30:03.330+03:00'
-                    updated_at: '2022-07-23T23:30:03.330+03:00'
-                    status: in_progress
-                    position: 1
-                    deadline_date: 25/07/2022
-                    deadline_time: '00:00'
+              examples:
+                Task deadline updated:
+                  value:
+                    data:
+                      id: '567'
+                      type: task
+                      attributes:
+                        name: ipsa
+                        created_at: '2022-07-24T13:47:18.413+03:00'
+                        updated_at: '2022-07-24T13:47:18.413+03:00'
+                        status: in_progress
+                        position: 1
+                        deadline_date: 25/07/2022
+                        deadline_time: '00:00'
         '404':
           description: Invalid task id
         '422':
           description: Invalid params
           content:
             application/json:
-              example:
-                errors:
-                  status:
-                  - The task is done. You can`t edit completed task.
-                  deadline:
-                  - The field is required.
-                  - Deadline cann`t be in past
+              examples:
+                when task already completed:
+                  value:
+                    errors:
+                      status:
+                      - The task is done. You can`t edit completed task.
+                when blank deadline parameter:
+                  value:
+                    errors:
+                      deadline:
+                      - The field is required.
+                      - Deadline cann`t be in past
       requestBody:
         content:
           application/json:
@@ -674,7 +723,7 @@ paths:
               properties:
                 deadline:
                   type: string
-                  example: '2022-07-23T23:29:59+03:00'
+                  example: '2022-07-24T13:47:14+03:00'
   "/api/v1/user":
     post:
       summary: Create user
@@ -688,27 +737,36 @@ paths:
           description: Created
           content:
             application/json:
-              example:
-                data:
-                  id: '494'
-                  type: user
-                  attributes:
-                    username: Delta Hyatt
-                    created_at: '2022-07-23T23:30:04.001+03:00'
-                    updated_at: '2022-07-23T23:30:04.001+03:00'
-                  relationships:
-                    projects:
-                      data: []
+              examples:
+                Created:
+                  value:
+                    data:
+                      id: '729'
+                      type: user
+                      attributes:
+                        username: Irena Kozey
+                        created_at: '2022-07-24T13:47:19.036+03:00'
+                        updated_at: '2022-07-24T13:47:19.036+03:00'
+                      relationships:
+                        projects:
+                          data: []
         '422':
           description: User name already exists
           content:
             application/json:
-              example:
-                errors:
-                  username:
-                  - This login is already registered. Please, log in.
-                  password:
-                  - The field is required.
+              examples:
+                Invalid params:
+                  value:
+                    errors:
+                      username:
+                      - The field is required.
+                      password:
+                      - The field is required.
+                User name already exists:
+                  value:
+                    errors:
+                      username:
+                      - This login is already registered. Please, log in.
       requestBody:
         content:
           application/json:
@@ -726,7 +784,7 @@ paths:
                   properties:
                     username:
                       type: string
-                      example: twannaxx
+                      example: larondaxx
                     password:
                       type: string
                       example: qwerty12

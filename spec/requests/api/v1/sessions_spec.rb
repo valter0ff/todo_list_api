@@ -5,7 +5,11 @@ RSpec.describe 'api/v1/sessions', type: :request do
     if response.body.present?
       example.metadata[:response][:content] = {
         'application/json' => {
-          example: JSON.parse(response.body, symbolize_names: true)
+          examples: {
+            example.metadata[:example_group][:description] => {
+              value: JSON.parse(response.body, symbolize_names: true)
+            }
+          }
         }
       }
     end
