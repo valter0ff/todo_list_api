@@ -15,14 +15,14 @@ RSpec.describe 'api/v1/comment', type: :request do
     end
   end
 
-  let(:'Authorization') { create_token(user: task.project.user) }
+  let(:Authorization) { create_token(user: task.project.user) }
 
   path '/api/v1/tasks/{task_id}/comments' do
     get 'Task comments index' do
       tags 'Comment'
       consumes 'application/json'
       security [Bearer: {}]
-      parameter name: :'Authorization', in: :header, type: :string, description: 'Access token'
+      parameter name: :Authorization, in: :header, type: :string, description: 'Access token'
       parameter name: :task_id, in: :path, schema: { type: :integer, example: rand(1..100) }
 
       let(:task) { create(:task, :with_comments) }
@@ -44,7 +44,7 @@ RSpec.describe 'api/v1/comment', type: :request do
       end
 
       response '401', 'Invalid token' do
-        let(:'Authorization') { nil }
+        let(:Authorization) { nil }
 
         run_test! do
           expect(response).to be_unauthorized
@@ -58,7 +58,7 @@ RSpec.describe 'api/v1/comment', type: :request do
       tags 'Comment'
       consumes 'application/json'
       security [Bearer: {}]
-      parameter name: :'Authorization', in: :header, type: :string, description: 'Access token'
+      parameter name: :Authorization, in: :header, type: :string, description: 'Access token'
       parameter name: :task_id, in: :path, schema: { type: :integer, example: rand(1..100) }
       parameter name: :params, in: :body, schema: {
         type: :object,
@@ -98,7 +98,7 @@ RSpec.describe 'api/v1/comment', type: :request do
       end
 
       response '401', 'Invalid token' do
-        let(:'Authorization') { nil }
+        let(:Authorization) { nil }
 
         run_test! do
           expect(response).to be_unauthorized
@@ -112,7 +112,7 @@ RSpec.describe 'api/v1/comment', type: :request do
       tags 'Comment'
       consumes 'application/json'
       security [Bearer: {}]
-      parameter name: :'Authorization', in: :header, type: :string, description: 'Access token'
+      parameter name: :Authorization, in: :header, type: :string, description: 'Access token'
       parameter name: :id, in: :path, schema: { type: :integer, example: rand(1..100) }
 
       let(:task) { create(:task) }
@@ -134,7 +134,7 @@ RSpec.describe 'api/v1/comment', type: :request do
       end
 
       response '401', 'Invalid token' do
-        let(:'Authorization') { nil }
+        let(:Authorization) { nil }
 
         run_test! do
           expect(response).to be_unauthorized

@@ -16,14 +16,14 @@ RSpec.describe 'api/v1/project', type: :request do
   end
 
   let(:user) { create(:user) }
-  let(:'Authorization') { create_token(user: user) }
+  let(:Authorization) { create_token(user: user) }
 
   path '/api/v1/projects' do
     post 'Create project' do
       tags 'Project'
       consumes 'application/json'
       security [Bearer: {}]
-      parameter name: :'Authorization', in: :header, type: :string, description: 'Access token'
+      parameter name: :Authorization, in: :header, type: :string, description: 'Access token'
       parameter name: :params, in: :body, schema: {
         type: :object,
         required: %w[project],
@@ -64,7 +64,7 @@ RSpec.describe 'api/v1/project', type: :request do
       end
 
       response '401', 'Invalid token' do
-        let(:'Authorization') { nil }
+        let(:Authorization) { nil }
 
         run_test! do
           expect(response).to be_unauthorized
@@ -78,7 +78,7 @@ RSpec.describe 'api/v1/project', type: :request do
       tags 'Project'
       consumes 'application/json'
       security [Bearer: {}]
-      parameter name: :'Authorization', in: :header, type: :string, description: 'Access token'
+      parameter name: :Authorization, in: :header, type: :string, description: 'Access token'
       parameter name: :id, in: :path, schema: { type: :integer, example: rand(1..100) }
       parameter name: :params, in: :body, schema: {
         type: :object,
@@ -119,7 +119,7 @@ RSpec.describe 'api/v1/project', type: :request do
       end
 
       response '401', 'Invalid token' do
-        let(:'Authorization') { nil }
+        let(:Authorization) { nil }
 
         run_test! do
           expect(response).to be_unauthorized
@@ -133,7 +133,7 @@ RSpec.describe 'api/v1/project', type: :request do
       tags 'Project'
       consumes 'application/json'
       security [Bearer: {}]
-      parameter name: :'Authorization', in: :header, type: :string, description: 'Access token'
+      parameter name: :Authorization, in: :header, type: :string, description: 'Access token'
       parameter name: :id, in: :path, schema: { type: :integer, example: rand(1..100) }
 
       let(:project) { create(:project, user: user) }
@@ -154,7 +154,7 @@ RSpec.describe 'api/v1/project', type: :request do
       end
 
       response '401', 'Invalid token' do
-        let(:'Authorization') { nil }
+        let(:Authorization) { nil }
 
         run_test! do
           expect(response).to be_unauthorized

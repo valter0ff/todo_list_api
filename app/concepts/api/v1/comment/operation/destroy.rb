@@ -3,7 +3,6 @@
 module Api::V1::Comment::Operation
   class Destroy < ApplicationOperation
     step :set_model
-    fail Macro::Semantic(failure: :not_found), fail_fast: true
     step :check_task_existence
     fail Macro::Semantic(failure: :not_found)
     pass :destroy_comment
