@@ -32,3 +32,7 @@ en:
           deadline:
             gteq?: Deadline cann`t be in past
             filled?: The field is required.
+      comment:
+        rules:
+          image:
+            valid_image?: File format should be `jpeg` or `png` and size should be less than 10 Mb

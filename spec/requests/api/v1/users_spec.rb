@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe 'api/v1/user', type: :request do
+RSpec.describe 'api/v1/users', type: :request do
   after do |example|
     if response.body.present?
       example.metadata[:response][:content] = {
