@@ -1,24 +1,4 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### README
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+This application is an implementation of *back-end part only​ (API, endpoints)* of **"To Do list"** - simple tool for productivity improvement. It let the user an ability to easy manage and control his own projects and tasks. It implements all scenarios in a volume sufficient for completing these scenarios by front-end developer.

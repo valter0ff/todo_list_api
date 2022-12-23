@@ -8,4 +8,8 @@ class Api::V1::CommentsController < AuthorizedController
   def create
     endpoint operation: Api::V1::Comment::Operation::Create
   end
+
+  def destroy
+    endpoint operation: Api::V1::Comment::Operation::Destroy
+  end
 end

@@ -5,14 +5,18 @@ RSpec.describe 'api/v1/task', type: :request do
     if response.body.present?
       example.metadata[:response][:content] = {
         'application/json' => {
-          example: JSON.parse(response.body, symbolize_names: true)
+          examples: {
+            example.metadata[:example_group][:description] => {
+              value: JSON.parse(response.body, symbolize_names: true)
+            }
+          }
         }
       }
     end
   end
 
   let(:user) { create(:user) }
-  let(:'Authorization') { create_token(user: user) }
+  let(:Authorization) { create_token(user: user) }
   let(:project) { create(:project, :with_tasks, user: user) }
   let(:project_id) { project.id }
 
@@ -21,7 +25,7 @@ RSpec.describe 'api/v1/task', type: :request do
       tags 'Task'
       consumes 'application/json'
       security [Bearer: {}]
-      parameter name: :'Authorization', in: :header, type: :string, description: 'Access token'
+      parameter name: :Authorization, in: :header, type: :string, description: 'Access token'
       parameter name: :project_id, in: :path, schema: { type: :integer, example: rand(1..100) }
 
       response '200', 'Project tasks returned' do
@@ -40,7 +44,7 @@ RSpec.describe 'api/v1/task', type: :request do
       end
 
       response '401', 'Invalid token' do
-        let(:'Authorization') { nil }
+        let(:Authorization) { nil }
 
         run_test! do
           expect(response).to be_unauthorized
@@ -56,7 +60,7 @@ RSpec.describe 'api/v1/task', type: :request do
       tags 'Task'
       consumes 'application/json'
       security [Bearer: {}]
-      parameter name: :'Authorization', in: :header, type: :string, description: 'Access token'
+      parameter name: :Authorization, in: :header, type: :string, description: 'Access token'
       parameter name: :project_id, in: :path, schema: { type: :integer, example: rand(1..100) }
       parameter name: :params, in: :body, schema: {
         type: :object,
@@ -91,7 +95,7 @@ RSpec.describe 'api/v1/task', type: :request do
       end
 
       response '401', 'Invalid token' do
-        let(:'Authorization') { nil }
+        let(:Authorization) { nil }
 
         run_test! do
           expect(response).to be_unauthorized
@@ -105,7 +109,7 @@ RSpec.describe 'api/v1/task', type: :request do
       tags 'Task'
       consumes 'application/json'
       security [Bearer: {}]
-      parameter name: :'Authorization', in: :header, type: :string, description: 'Access token'
+      parameter name: :Authorization, in: :header, type: :string, description: 'Access token'
       parameter name: :id, in: :path, schema: { type: :integer, example: rand(1..100) }
 
       let!(:project) { create(:project, :with_tasks, user: user) }
@@ -127,7 +131,7 @@ RSpec.describe 'api/v1/task', type: :request do
       end
 
       response '401', 'Invalid token' do
-        let(:'Authorization') { nil }
+        let(:Authorization) { nil }
 
         run_test! do
           expect(response).to be_unauthorized
@@ -141,7 +145,7 @@ RSpec.describe 'api/v1/task', type: :request do
       tags 'Task'
       consumes 'application/json'
       security [Bearer: {}]
-      parameter name: :'Authorization', in: :header, type: :string, description: 'Access token'
+      parameter name: :Authorization, in: :header, type: :string, description: 'Access token'
       parameter name: :id, in: :path, schema: { type: :integer, example: rand(1..100) }
       parameter name: :params, in: :body, schema: {
         type: :object,
@@ -200,7 +204,7 @@ RSpec.describe 'api/v1/task', type: :request do
       tags 'Task'
       consumes 'application/json'
       security [Bearer: {}]
-      parameter name: :'Authorization', in: :header, type: :string, description: 'Access token'
+      parameter name: :Authorization, in: :header, type: :string, description: 'Access token'
       parameter name: :id, in: :path, schema: { type: :integer, example: rand(1..100) }
       parameter name: :params, in: :body, schema: {
         type: :object,
@@ -256,7 +260,7 @@ RSpec.describe 'api/v1/task', type: :request do
       tags 'Task'
       consumes 'application/json'
       security [Bearer: {}]
-      parameter name: :'Authorization', in: :header, type: :string, description: 'Access token'
+      parameter name: :Authorization, in: :header, type: :string, description: 'Access token'
       parameter name: :id, in: :path, schema: { type: :integer, example: rand(1..100) }
 
       response '204', 'Task destroyed' do
@@ -277,7 +281,7 @@ RSpec.describe 'api/v1/task', type: :request do
 
       response '401', 'Invalid token' do
         let(:id) { project.tasks.first.id }
-        let(:'Authorization') { nil }
+        let(:Authorization) { nil }
 
         run_test! do
           expect(response).to be_unauthorized
