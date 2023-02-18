@@ -4,6 +4,55 @@ info:
   title: API V1
   version: v1
 paths:
+  "/api/v1/current_user":
+    get:
+      summary: Show current user
+      tags:
+      - Current user
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        description: Access token
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Current user is returned
+        '401':
+          description: Invalid token
+  "/api/v1/projects":
+    post:
+      summary: Create project
+      tags:
+      - Project
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        description: Access token
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Project is created
+        '422':
+          description: Invalid parameters
+        '401':
+          description: Invalid token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - project
+              properties:
+                title:
+                  type: string
+                  example: at
   "/api/v1/session":
     post:
       summary: Create session
@@ -32,7 +81,7 @@ paths:
               properties:
                 username:
                   type: string
-                  example: montexx
+                  example: carletta_hodkiewiczxx
                 password:
                   type: string
                   example: qwerty12
@@ -65,7 +114,7 @@ paths:
         '201':
           description: Created
         '422':
-          description: Invalid params
+          description: User name already exists
       requestBody:
         content:
           application/json:
@@ -83,7 +132,7 @@ paths:
                   properties:
                     username:
                       type: string
-                      example: kindra.framixx
+                      example: abbie.schulistxx
                     password:
                       type: string
                       example: qwerty12

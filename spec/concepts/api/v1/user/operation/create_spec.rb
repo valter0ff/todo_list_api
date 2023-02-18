@@ -37,6 +37,16 @@ RSpec.describe Api::V1::User::Operation::Create do
       it 'doesn`t create new user in database' do
         expect { result }.not_to change(User, :count)
       end
+
+      context 'when params hasn`t key `user`' do
+        let(:params) { {} }
+        let(:unprocessable_request_error) { I18n.t('errors.unprocessable') }
+
+        it 'operation result failed' do
+          expect(result).to be_failure
+          expect(result_errors[:base]).to eq(unprocessable_request_error)
+        end
+      end
     end
   end
 end

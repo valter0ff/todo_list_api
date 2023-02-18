@@ -7,7 +7,7 @@ module Api::V1::Session::Operation
     step :set_model
     fail Macro::Semantic(failure: :not_found), fail_fast: true
     step :authenticate
-    fail :add_contract_error
+    fail Macro::ContractErrors(error: I18n.t('errors.rules.session.unauthorized'))
     fail Macro::Semantic(failure: :unauthorized)
     step :set_session_tokens
     pass :set_serializer
@@ -19,10 +19,6 @@ module Api::V1::Session::Operation
 
     def authenticate(_ctx, model:, params:, **)
       model.authenticate(params[:password])
-    end
-
-    def add_contract_error(ctx, **)
-      ctx['contract.default'].errors.messages[:base] = I18n.t('errors.rules.session.unauthorized')
     end
 
     def set_session_tokens(ctx, model:, **)

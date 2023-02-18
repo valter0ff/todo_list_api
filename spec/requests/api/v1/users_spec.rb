@@ -49,6 +49,16 @@ RSpec.describe 'api/v1/user', type: :request do
           expect(response).to match_json_schema('api/v1/users/errors')
         end
       end
+
+      response '422', 'User name already exists' do
+        let!(:user) { create(:user) }
+        let(:params) { { user: attributes_for(:user, username: user.username) } }
+
+        run_test! do
+          expect(response).to be_unprocessable
+          expect(response).to match_json_schema('api/v1/users/unique_name_errors')
+        end
+      end
     end
   end
 end

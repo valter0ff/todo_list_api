@@ -3,10 +3,16 @@
 module Api::V1::CurrentUser::Operation
   class Show < ApplicationOperation
     step :set_model
+    fail Macro::Semantic(failure: :not_found)
     step :serializer
+    pass Macro::Semantic(success: :ok)
 
-    def set_model(ctx, **); end
+    def set_model(ctx, current_user:, **)
+      ctx[:model] = current_user
+    end
 
-    def serializer(ctx, model:, **); end
+    def serializer(ctx, model:, **)
+      ctx[:serializer] = Api::V1::Lib::UserSerializer::Show.new(model)
+    end
   end
 end

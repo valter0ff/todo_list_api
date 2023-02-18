@@ -6,6 +6,7 @@ module Api::V1::User::Operation
     step Contract::Build(constant: Api::V1::User::Contract::Create)
     step Contract::Validate(key: :user)
     step Contract::Persist()
+    fail Macro::ContractErrors(error: I18n.t('errors.unprocessable'))
     pass :set_serializer
     pass Macro::Semantic(success: :created)
 

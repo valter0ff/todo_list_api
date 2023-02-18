@@ -1,5 +1,6 @@
 en:
   errors:
+    unprocessable: Unprocessable request
     rules:
       user:
         rules:
@@ -16,5 +17,9 @@ en:
             filled?: The field is required.
             eql?: Password and Confirm password fields does not match.
       session:
-        unauthorized: ​Incorrect login or(and) password
-
+        unauthorized: Incorrect login or(and) password
+      project:
+        rules:
+          title:
+            filled?: The field is required.
+            unique_title?: The project with such name does already exist.
